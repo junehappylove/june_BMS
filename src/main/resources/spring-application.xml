@@ -21,7 +21,7 @@
 	<tx:annotation-driven />-->
 	<tx:annotation-driven />
 	<!-- 统一异常处理方式 -->
-	<bean id="exceptionHandler" class="com.lanyuan.exception.MyExceptionHandler"/>
+	<bean id="exceptionHandler" class="com.june.exception.MyExceptionHandler"/>
 	<!-- 初始化数据 -->
 	
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
@@ -39,7 +39,7 @@
 		<property name="driverClassName" value="${jdbc.driverClass}" />
 	</bean>
 	
-	<bean id="pagePlugin" class="com.lanyuan.plugin.PagePlugin">
+	<bean id="pagePlugin" class="com.june.plugin.PagePlugin">
 		<property name="properties">
 			<props>
 				<prop key="dialect">mysql</prop>
@@ -51,16 +51,16 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动匹配Mapper映射文件 -->
 		<property name="mapperLocations" value="classpath:mappings/*-mapper.xml"/>
-		<property name="typeAliasesPackage" value="com.lanyuan.entity"/>
+		<property name="typeAliasesPackage" value="com.june.entity"/>
 		<property name="plugins">
 			<array>
 				<ref bean="pagePlugin" />
 			</array>
 		</property>
 	</bean>
-	<!-- 通过扫描的模式，扫描目录在com.lanyuan.mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
+	<!-- 通过扫描的模式，扫描目录在com.june.mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.lanyuan.mapper" />
+		<property name="basePackage" value="com.june.mapper" />
 	</bean>
 	<!-- 事务配置 -->
 	<bean id="transactionManager"
@@ -69,7 +69,7 @@
 	</bean>
 	<!-- <aop:config>
 		<aop:pointcut
-			expression="execution(public * com.lanyuan.controller.*(..))"
+			expression="execution(public * com.june.controller.*(..))"
 			id="pointcut" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut" />
 	</aop:config>
@@ -85,14 +85,14 @@
 		</tx:attributes>
 	</tx:advice> -->
 	<!-- <aop:aspectj-autoproxy proxy-target-class="true"/> 
-	 <bean id="log4jHandlerAOP" class="com.lanyuan.logAop.LogAopAction"></bean> 
+	 <bean id="log4jHandlerAOP" class="com.june.logAop.LogAopAction"></bean> 
 		<aop:config proxy-target-class="true">
 		    <aop:aspect id="logAspect" ref="log4jHandlerAOP"> 
 		    <aop:pointcut id="logPointCut" expression="execution(* org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(..))" /> 
 		    <aop:around method="logAll" pointcut-ref="logPointCut" /> </aop:aspect> 
 		</aop:config> -->
 	<!-- 使用Spring组件扫描的方式来实现自动注入bean -->
-	<context:component-scan base-package="com.lanyuan.task" />
+	<context:component-scan base-package="com.june.task" />
 	<!-- 隐式地向 Spring 容器注册 -->
 	<!-- <context:annotation-config /> -->
 </beans>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<title>蓝缘管理系统</title>
+<title>JUNE管理系统</title>
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 <META HTTP-EQUIV="Expires" CONTENT="0">
@@ -23,7 +23,7 @@ user-scalable - 用户是否可以手动缩放
  -->
 <link rel="stylesheet" href="${ctx}/notebook/notebook_files/font.css" type="text/css">
 <link rel="stylesheet" href="${ctx}/notebook/notebook_files/app.v1.css" type="text/css">
-<link rel="stylesheet" href="${ctx}/css/lanyuan.css" type="text/css">
+<link rel="stylesheet" href="${ctx}/css/june.css" type="text/css">
 	<!-- base start 重要部分不可删改-->
 <script type="text/javascript" src="${ctx}/notebook/notebook_files/app.v1.js"></script>
 <script type="text/javascript" src="${ctx}/notebook/notebook_files/app.plugin.js"></script>

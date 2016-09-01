@@ -4,16 +4,17 @@
 		<div class="alert alert-warning alert-block">
 		<table>
 		<tr>
-		<td align="center" colspan="2"><h1>蓝缘开源系统</h1></td>
+		<td align="center" colspan="2"><h1>JUNE开源系统</h1></td>
 		</tr>
 		<tr>
 		<td><div class="topBtn" style="font-size: 15px;">
-				
+				<h3>接管开源大业，任重而道远也        --june @ 2016-09-01</h3>
 		          	<div style="padding-left: 20px;color: red;">	
 		          	 1.0版和2.0版的源码已经开源<br>
 		          	 1.0版本：http://blog.csdn.net/mmm333zzz/article/details/16863543<br>
-　　　				 2.0版本：http://blog.csdn.net/mmm333zzz/article/details/37773589
-		          	</div><br>
+　　　				 		2.0版本：http://blog.csdn.net/mmm333zzz/article/details/37773589
+		          	</div>
+		          	<br>
 								关于3.0新版本的说明：
 								<div style="padding-left: 20px;">
 								一大亮点：<div style="padding-left: 20px;color: red;">采用最新的技术流行框架：springMVC4.1.4+shiro1.2.3+spring4.x+Mybaits3.2.8+Ajax+html5<br>
@@ -26,7 +27,7 @@
 								<div style="padding-left: 20px;">
 									说明：
 									<div style="padding-left: 20px;">
-									这个版本主要是对原有的蓝缘系统更换UI界面,功能上基本一致,
+									这个版本主要是对原有的JUNE系统更换UI界面,功能上基本一致,
 									但此还在开发当中..... 关于以前版本,不再维护,致力于新版本的开发和维护..
 									</div>
 									优化：
@@ -81,9 +82,9 @@
 		<div class="alert alert-danger">
 			<button type="button" class="close" data-dismiss="alert">×</button>
 								<div style="font-size: 17px;">
-							         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 蓝缘有一个自己的网站空间,所有在学习和使用蓝缘系统的同志们捐助1元或2元就行(要求不过分吧!街边吃顿都10元以上啊.....),
-							       以下是蓝缘系统捐助的支付页面，由于空间网站需求收费，故此征集大家为蓝缘系统做一点贡献，有了你的支持，蓝缘系统将做得更好，服务开源，献身开源！再次致谢 ！
-							     </div><img alt="蓝缘系统的支付连接" src="${pageContext.request.contextPath}/images/zhifubao.png" title="蓝缘系统的支付连接"> <span title="蓝缘系统的支付连接" style="font-size: 20px;color: blue;" >支付宝账号是:mmm333zzz520@163.com</span><br> <span title="蓝缘系统的支付连接" style="font-size: 20px;color: blue;" >支付地址: 支付地址已经关闭,亲可以直接转到支付宝账号上，记得备注哦！</span>
+							         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JUNE有一个自己的网站空间,所有在学习和使用JUNE系统的同志们捐助1元或2元就行(要求不过分吧!街边吃顿都10元以上啊.....),
+							       以下是JUNE系统捐助的支付页面，由于空间网站需求收费，故此征集大家为JUNE系统做一点贡献，有了你的支持，JUNE系统将做得更好，服务开源，献身开源！再次致谢 ！
+							     </div><img alt="JUNE系统的支付连接" src="${pageContext.request.contextPath}/images/zhifubao.png" title="JUNE系统的支付连接"> <span title="JUNE系统的支付连接" style="font-size: 20px;color: blue;" >支付宝账号是:wjw.happy.love@163.com</span><br> <span title="JUNE系统的支付连接" style="font-size: 20px;color: blue;" >支付地址: 支付地址已经关闭,亲可以直接转到支付宝账号上，记得备注哦！</span>
 								</div>
 	</div>
 	<div class="col-md-6">
@@ -94,17 +95,17 @@
 					<td style="font-size: 17px; color: blue; width: 150px;"
 						valign="top">感谢捐助:</td>
 					<td align="left" style="font-size: 14px; color: blue;">
-						以下是蓝缘系统捐助的支付页面，由于空间网站需求收费，故此征集大家为蓝缘系统做一点贡献，有了你的支持，蓝缘系统将做得更好，服务开源，献身开源！再次致谢
+						以下是JUNE系统捐助的支付页面，由于空间网站需求收费，故此征集大家为JUNE系统做一点贡献，有了你的支持，JUNE系统将做得更好，服务开源，献身开源！再次致谢
 						！</td>
 				</tr>
 				<tr>
 					<td>支付宝账号是:</td>
-					<td style="font-size: 17px; color: blue;">mmm333zzz520@163.com</td>
+					<td style="font-size: 17px; color: blue;">wjw.happy.love@163.com</td>
 				</tr>
 				<tr>
-					<td width="116"><img alt="蓝缘系统的支付连接"
+					<td width="116"><img alt="JUNE系统的支付连接"
 						src="${pageContext.request.contextPath}/images/zhifubao.png"></td>
-					<td><span title="蓝缘系统的支付连接"
+					<td><span title="JUNE系统的支付连接"
 						style="font-size: 17px; color: blue;">支付地址已经关闭,亲可以直接转到支付宝账号上，<span style="font-size: 17px; color: red;">捐助请备注哦！谢谢！</span></span></td>
 					
 				</tr>

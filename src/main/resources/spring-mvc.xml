@@ -3,24 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
-    http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
-        http://www.springframework.org/schema/mvc 
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd   
-    http://www.springframework.org/schema/aop 
-     http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
 	default-lazy-init="true">
-	<context:component-scan base-package="com.lanyuan.controller" />
-	<context:component-scan base-package="com.lanyuan.logAop" />
+	<context:component-scan base-package="com.june.controller" />
+	<context:component-scan base-package="com.june.logAop" />
 	<!-- 启动对@AspectJ注解的支持 -->
-	<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller-->  
-<!-- <aop:aspectj-autoproxy proxy-target-class="true"/> -->
-	<!-- 注解支持 -->  
-<!-- <context:annotation-config/>  -->
+	<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller -->
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true"/> -->
+	<!-- 注解支持 -->
+	<!-- <context:annotation-config/> -->
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
 	<bean id="mappingJackson2HttpMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -76,5 +67,5 @@
 		<!-- 内存中的最大值 -->
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
-    <import resource="spring-mvc-shiro.xml"/>
+	<import resource="spring-mvc-shiro.xml" />
 </beans>

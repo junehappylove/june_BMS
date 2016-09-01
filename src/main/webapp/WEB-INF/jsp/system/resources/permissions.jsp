@@ -49,7 +49,7 @@ th.nobg {
  color: #4f6b72;
 }
 
-.lanyuan_bb{
+.june_bb{
 border-bottom: 1px solid #C1DAD7;
 }
 
