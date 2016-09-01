@@ -1,12 +1,12 @@
 package com.june.upload;
 
-
 import java.awt.image.BufferedImage;
-/** 
-* @author june
-* @Email：wjw.happy.love@163.com
-* @date：2014-12-05
-*/
+
+/**
+ * @author june
+ * @Email：wjw.happy.love@163.com 
+ * @date：2014-12-05
+ */
 public class ScaleImage {
 	private int width;
 
@@ -33,10 +33,14 @@ public class ScaleImage {
 	 * scaling. Lanczos improves quality of the scaled image modify by :blade
 	 */
 	private static ScaleImage instance = new ScaleImage();
-	private ScaleImage(){};
-	public static ScaleImage getInstance(){
+
+	private ScaleImage() {
+	};
+
+	public static ScaleImage getInstance() {
 		return instance;
 	}
+
 	public BufferedImage imageZoomOut(BufferedImage srcBufferImage, int w, int h) {
 		width = srcBufferImage.getWidth();
 		height = srcBufferImage.getHeight();
@@ -71,14 +75,13 @@ public class ScaleImage {
 
 		x = (double) i * (double) outWidth / (double) inWidth;
 
-		return Math.sin(x * PI) / (x * PI) * Math.sin(x * PI / Support)
-				/ (x * PI / Support);
+		return Math.sin(x * PI) / (x * PI) * Math.sin(x * PI / Support) / (x * PI / Support);
 
 	} // end of Lanczos()
 
-	//  
+	//
 	// Assumption: same horizontal and vertical scaling factor
-	//  
+	//
 	private void CalContrib() {
 		nHalfDots = (int) ((double) width * support / (double) scaleWidth);
 		nDots = nHalfDots * 2 + 1;
@@ -149,8 +152,8 @@ public class ScaleImage {
 	}
 
 	// 行水平滤�?
-	private int HorizontalFilter(BufferedImage bufImg, int startX, int stopX,
-			int start, int stop, int y, double[] pContrib) {
+	private int HorizontalFilter(BufferedImage bufImg, int startX, int stopX, int start, int stop, int y,
+			double[] pContrib) {
 		double valueRed = 0.0;
 		double valueGreen = 0.0;
 		double valueBlue = 0.0;
@@ -165,8 +168,7 @@ public class ScaleImage {
 			valueBlue += GetBlueValue(valueRGB) * pContrib[j];
 		}
 
-		valueRGB = ComRGB(Clip((int) valueRed), Clip((int) valueGreen),
-				Clip((int) valueBlue));
+		valueRGB = ComRGB(Clip((int) valueRed), Clip((int) valueGreen), Clip((int) valueBlue));
 		return valueRGB;
 
 	} // end of HorizontalFilter()
@@ -176,8 +178,7 @@ public class ScaleImage {
 		int dwInW = bufImage.getWidth();
 		int dwInH = bufImage.getHeight();
 		int value = 0;
-		BufferedImage pbOut = new BufferedImage(iOutW, dwInH,
-				BufferedImage.TYPE_INT_RGB);
+		BufferedImage pbOut = new BufferedImage(iOutW, dwInH, BufferedImage.TYPE_INT_RGB);
 
 		for (int x = 0; x < iOutW; x++) {
 
@@ -206,14 +207,12 @@ public class ScaleImage {
 			if (start > 0 || stop < nDots - 1) {
 				CalTempContrib(start, stop);
 				for (y = 0; y < dwInH; y++) {
-					value = HorizontalFilter(bufImage, startX, stopX, start,
-							stop, y, tmpContrib);
+					value = HorizontalFilter(bufImage, startX, stopX, start, stop, y, tmpContrib);
 					pbOut.setRGB(x, y, value);
 				}
 			} else {
 				for (y = 0; y < dwInH; y++) {
-					value = HorizontalFilter(bufImage, startX, stopX, start,
-							stop, y, normContrib);
+					value = HorizontalFilter(bufImage, startX, stopX, start, stop, y, normContrib);
 					pbOut.setRGB(x, y, value);
 				}
 			}
@@ -223,8 +222,8 @@ public class ScaleImage {
 
 	} // end of HorizontalFiltering()
 
-	private int VerticalFilter(BufferedImage pbInImage, int startY, int stopY,
-			int start, int stop, int x, double[] pContrib) {
+	private int VerticalFilter(BufferedImage pbInImage, int startY, int stopY, int start, int stop, int x,
+			double[] pContrib) {
 		double valueRed = 0.0;
 		double valueGreen = 0.0;
 		double valueBlue = 0.0;
@@ -239,8 +238,7 @@ public class ScaleImage {
 			valueBlue += GetBlueValue(valueRGB) * pContrib[j];
 		}
 
-		valueRGB = ComRGB(Clip((int) valueRed), Clip((int) valueGreen),
-				Clip((int) valueBlue));
+		valueRGB = ComRGB(Clip((int) valueRed), Clip((int) valueGreen), Clip((int) valueBlue));
 		return valueRGB;
 
 	} // end of VerticalFilter()
@@ -249,8 +247,7 @@ public class ScaleImage {
 		int iW = pbImage.getWidth();
 		int iH = pbImage.getHeight();
 		int value = 0;
-		BufferedImage pbOut = new BufferedImage(iW, iOutH,
-				BufferedImage.TYPE_INT_RGB);
+		BufferedImage pbOut = new BufferedImage(iW, iOutH, BufferedImage.TYPE_INT_RGB);
 
 		for (int y = 0; y < iOutH; y++) {
 
@@ -278,14 +275,12 @@ public class ScaleImage {
 			if (start > 0 || stop < nDots - 1) {
 				CalTempContrib(start, stop);
 				for (int x = 0; x < iW; x++) {
-					value = VerticalFilter(pbImage, startY, stopY, start, stop,
-							x, tmpContrib);
+					value = VerticalFilter(pbImage, startY, stopY, start, stop, x, tmpContrib);
 					pbOut.setRGB(x, y, value);
 				}
 			} else {
 				for (int x = 0; x < iW; x++) {
-					value = VerticalFilter(pbImage, startY, stopY, start, stop,
-							x, normContrib);
+					value = VerticalFilter(pbImage, startY, stopY, start, stop, x, normContrib);
 					pbOut.setRGB(x, y, value);
 				}
 			}

@@ -23,7 +23,7 @@ import com.june.mapper.LogMapper;
 import com.june.util.Common;
 
 /**
- * 切点类
+ * 日志切点类
  * 
  * @author LJN
  * @since 2015-05-05 Pm 20:35
@@ -161,13 +161,12 @@ public class LogAopAction {
 	 * @return 方法描述
 	 * @throws Exception
 	 */
-	@SuppressWarnings("rawtypes")
 	public Map<String, Object> getControllerMethodDescription(JoinPoint joinPoint) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String targetName = joinPoint.getTarget().getClass().getName();
 		String methodName = joinPoint.getSignature().getName();
 		Object[] arguments = joinPoint.getArgs();
-		Class targetClass = Class.forName(targetName);
+		Class<?> targetClass = Class.forName(targetName);
 		Method[] methods = targetClass.getMethods();
 		for (Method method : methods) {
 			if (method.getName().equals(methodName)) {

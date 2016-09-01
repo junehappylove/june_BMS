@@ -53,15 +53,15 @@ public class BaseController {
 	 * 获取返回某一页面的按扭组,
 	 * <br/>
 	 *<b>author：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspjune</b><br/> 
+	 *<b>june</b><br/> 
 	 *<b>date：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2015-04-01</b><br/> 
+	 *<b>2015-04-01</b><br/> 
 	 *<b>mod by：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEkko</b><br/> 
+	 *<b>Ekko</b><br/> 
 	 *<b>date：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2015-09-07</b><br/> 
+	 *<b>2015-09-07</b><br/> 
 	 *<b>version：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp3.0v</b>
+	 *<b>3.0v</b>
 	 * @return Class<T>
 	 * @throws Exception
 	 */
@@ -92,11 +92,11 @@ public class BaseController {
 	 * 获取页面传递的某一个参数值,
 	 * <br/>
 	 *<b>author：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspjune</b><br/> 
+	 *<b>june</b><br/> 
 	 *<b>date：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2015-04-01</b><br/> 
+	 *<b>2015-04-01</b><br/> 
 	 *<b>version：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp3.0v</b>
+	 *<b>3.0v</b>
 	 */
 	public String getPara(String key){
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();  
@@ -107,11 +107,11 @@ public class BaseController {
 	 * 获取页面传递的某一个数组值,
 	 * <br/>
 	 *<b>author：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspjune</b><br/> 
+	 *<b>june</b><br/> 
 	 *<b>date：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2015-04-01</b><br/> 
+	 *<b>2015-04-01</b><br/> 
 	 *<b>version：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp3.0v</b>
+	 *<b>3.0v</b>
 	 * @return Class<T>
 	 * @throws Exception
 	 */
@@ -147,11 +147,11 @@ public class BaseController {
 	 * 通过泛型回传对象.
 	 * <br/>
 	 *<b>author：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspjune</b><br/> 
+	 *<b>june</b><br/> 
 	 *<b>date：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2015-04-01</b><br/> 
+	 *<b>2015-04-01</b><br/> 
 	 *<b>version：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp3.0v</b>
+	 *<b>3.0v</b>
 	 * @return Class<T>
 	 * @throws Exception
 	 */
@@ -204,11 +204,11 @@ public class BaseController {
 	 * 通过回传Map对象.
 	 * <br/>
 	 *<b>author：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsplijianning</b><br/> 
+	 *<b>lijianning</b><br/> 
 	 *<b>date：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2015-04-01</b><br/> 
+	 *<b>2015-04-01</b><br/> 
 	 *<b>version：</b><br/> 
-	 *<b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1.0v</b>
+	 *<b>1.0v</b>
 	 * @return Class<T>
 	 * @throws Exception
 	 */

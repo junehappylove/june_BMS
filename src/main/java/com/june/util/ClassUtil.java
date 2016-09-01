@@ -24,7 +24,9 @@ public class ClassUtil {
 
 	/**
 	 * 获取某包下（包括该包的所有子包）所有类
-	 * @param packageName 包名
+	 * 
+	 * @param packageName
+	 *            包名
 	 * @return 类的完整名称
 	 */
 	public static List<String> getClassName(String packageName) {
@@ -33,8 +35,11 @@ public class ClassUtil {
 
 	/**
 	 * 获取某包下所有类
-	 * @param packageName 包名
-	 * @param childPackage 是否遍历子包
+	 * 
+	 * @param packageName
+	 *            包名
+	 * @param childPackage
+	 *            是否遍历子包
 	 * @return 类的完整名称
 	 */
 	public static List<String> getClassName(String packageName, boolean childPackage) {
@@ -57,9 +62,13 @@ public class ClassUtil {
 
 	/**
 	 * 从项目文件获取某包下所有类
-	 * @param filePath 文件路径
-	 * @param className 类名集合
-	 * @param childPackage 是否遍历子包
+	 * 
+	 * @param filePath
+	 *            文件路径
+	 * @param className
+	 *            类名集合
+	 * @param childPackage
+	 *            是否遍历子包
 	 * @return 类的完整名称
 	 */
 	private static List<String> getClassNameByFile(String filePath, List<String> className, boolean childPackage) {
@@ -74,8 +83,9 @@ public class ClassUtil {
 			} else {
 				String childFilePath = childFile.getPath();
 				if (childFilePath.endsWith(".class")) {
-					childFilePath=childFilePath.replaceAll("/","\\\\");
-					childFilePath = childFilePath.substring(childFilePath.indexOf("\\classes") + 9, childFilePath.lastIndexOf("."));
+					childFilePath = childFilePath.replaceAll("/", "\\\\");
+					childFilePath = childFilePath.substring(childFilePath.indexOf("\\classes") + 9,
+							childFilePath.lastIndexOf("."));
 					childFilePath = childFilePath.replace("\\", ".");
 					myClassName.add(childFilePath);
 				}
@@ -87,8 +97,11 @@ public class ClassUtil {
 
 	/**
 	 * 从jar获取某包下所有类
-	 * @param jarPath jar文件路径
-	 * @param childPackage 是否遍历子包
+	 * 
+	 * @param jarPath
+	 *            jar文件路径
+	 * @param childPackage
+	 *            是否遍历子包
 	 * @return 类的完整名称
 	 */
 	private static List<String> getClassNameByJar(String jarPath, boolean childPackage) {
@@ -96,8 +109,9 @@ public class ClassUtil {
 		String[] jarInfo = jarPath.split("!");
 		String jarFilePath = jarInfo[0].substring(jarInfo[0].indexOf("/"));
 		String packagePath = jarInfo[1].substring(1);
+		JarFile jarFile = null;
 		try {
-			JarFile jarFile = new JarFile(jarFilePath);
+			jarFile = new JarFile(jarFilePath);
 			Enumeration<JarEntry> entrys = jarFile.entries();
 			while (entrys.hasMoreElements()) {
 				JarEntry jarEntry = entrys.nextElement();
@@ -131,9 +145,13 @@ public class ClassUtil {
 
 	/**
 	 * 从所有jar中搜索该包，并获取该包下所有类
-	 * @param urls URL集合
-	 * @param packagePath 包路径
-	 * @param childPackage 是否遍历子包
+	 * 
+	 * @param urls
+	 *            URL集合
+	 * @param packagePath
+	 *            包路径
+	 * @param childPackage
+	 *            是否遍历子包
 	 * @return 类的完整名称
 	 */
 	private static List<String> getClassNameByJars(URL[] urls, String packagePath, boolean childPackage) {

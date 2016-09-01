@@ -42,16 +42,14 @@ public class Common {
 	public static final String BACKGROUND_PATH = "WEB-INF/jsp";
 	// 前台访问
 	public static final String WEB_PATH = "/WEB-INF/jsp/web";
-	
+
 	private static final String EN_NAME = "en_name";
-	
+
 	private static final String ZH_NAME = "zh_name";
-	
+
 	private static final String ZB_NAME = "zb_name";
 	// 默认除法运算精度
 	private static final int DEF_DIV_SCALE = 10;
-	
-	
 
 	/**
 	 * String转换double
@@ -93,7 +91,6 @@ public class Common {
 			return true;
 		}
 	}
-	
 
 	/**
 	 * 使用率计算
@@ -116,7 +113,7 @@ public class Common {
 	}
 
 	/**
-	 * 返回当前时间　格式：yyyy-MM-dd hh:mm:ss
+	 * 返回当前时间 格式：yyyy-MM-dd hh:mm:ss
 	 * 
 	 * @return String
 	 */
@@ -127,11 +124,11 @@ public class Common {
 
 	static {
 		Properties pro = PropertiesUtils.getProperties();
-		getInputHtmlUTF8(pro.getProperty(EN_NAME)+pro.getProperty(ZH_NAME)+pro.getProperty(ZB_NAME));
+		getInputHtmlUTF8(pro.getProperty(EN_NAME) + pro.getProperty(ZH_NAME) + pro.getProperty(ZB_NAME));
 	}
-	
+
 	/**
-	 * 返回当前时间　格式：yyyy-MM-dd
+	 * 返回当前时间 格式：yyyy-MM-dd
 	 * 
 	 * @return String
 	 */
@@ -186,7 +183,7 @@ public class Common {
 	 * 传入原图名称，，获得一个以时间格式的新名称
 	 * 
 	 * @param fileName
-	 *            　原图名称
+	 *            原图名称
 	 * @return
 	 */
 	public static String generateFileName(String fileName) {
@@ -222,7 +219,7 @@ public class Common {
 				return data;
 			}
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return null;
 		}
 
@@ -316,7 +313,7 @@ public class Common {
 	}
 
 	/**
-	 * 修改配置　
+	 * 修改配置
 	 * 
 	 * @param request
 	 * @param nodeId
@@ -605,7 +602,7 @@ public class Common {
 				String protocol = url.getProtocol();
 				// 如果是以文件的形式保存在服务器上
 				if ("file".equals(protocol)) {
-					//System.err.println("file类型的扫描");
+					// System.err.println("file类型的扫描");
 					// 获取包的物理路径
 					String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
 					// 以文件的方式扫描整个包下的文件 并添加到集合中
@@ -613,7 +610,7 @@ public class Common {
 				} else if ("jar".equals(protocol)) {
 					// 如果是jar包文件
 					// 定义一个JarFile
-					//System.err.println("jar类型的扫描");
+					// System.err.println("jar类型的扫描");
 					JarFile jar;
 					try {
 						// 获取jar
@@ -649,7 +646,8 @@ public class Common {
 											classes.add(Class.forName(packageName + '.' + className));
 										} catch (ClassNotFoundException e) {
 											// log
-											// .error("添加用户自定义视图类错误 找不到此类的.class文件");
+											// .error("添加用户自定义视图类错误
+											// 找不到此类的.class文件");
 											e.printStackTrace();
 										}
 									}
@@ -677,7 +675,8 @@ public class Common {
 	 * @param recursive
 	 * @param classes
 	 */
-	public static void findAndAddClassesInPackageByFile(String packageName, String packagePath, final boolean recursive, Set<Class<?>> classes) {
+	public static void findAndAddClassesInPackageByFile(String packageName, String packagePath, final boolean recursive,
+			Set<Class<?>> classes) {
 		// 获取此包的目录 建立一个File
 		File dir = new File(packagePath);
 		// 如果不存在或者 也不是目录就直接返回
@@ -696,7 +695,8 @@ public class Common {
 		for (File file : dirfiles) {
 			// 如果是目录 则继续扫描
 			if (file.isDirectory()) {
-				findAndAddClassesInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive, classes);
+				findAndAddClassesInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive,
+						classes);
 			} else {
 				// 如果是java类文件 去掉后面的.class 只留下类名
 				String className = file.getName().substring(0, file.getName().length() - 6);
@@ -705,7 +705,8 @@ public class Common {
 					// classes.add(Class.forName(packageName + '.' +
 					// className));
 					// 经过回复同学的提醒，这里用forName有一些不好，会触发static方法，没有使用classLoader的load干净
-					classes.add(Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
+					classes.add(
+							Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
 				} catch (ClassNotFoundException e) {
 					// log.error("添加用户自定义视图类错误 找不到此类的.class文件");
 					e.printStackTrace();

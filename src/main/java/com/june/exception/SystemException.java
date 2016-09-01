@@ -2,6 +2,7 @@ package com.june.exception;
 
 /**
  * 系统业务异常 throw new SystemException("XXXX")
+ * 
  * @author june
  * @date 2014-12-10
  * @Email：wjw.happy.love@163.com

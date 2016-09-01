@@ -7,9 +7,8 @@
 			name="searchForm">
 			<div class="form-group">
 				<label class="control-label"> <span
-					class="h4 font-thin v-middle">角色名:</span></label> <input
-					class="input-medium ui-autocomplete-input" id="name"
-					name="roleFormMap.roleFormMap.name">
+					class="h4 font-thin v-middle">角色名:</span></label> 
+				<input class="input-medium ui-autocomplete-input" id="name" name="roleFormMap.name">
 			</div>
 			<a href="javascript:void(0)" class="btn btn-default" id="search">查询</a>
 		</form>

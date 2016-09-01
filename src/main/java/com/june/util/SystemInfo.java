@@ -84,6 +84,7 @@ public class SystemInfo {
 		}
 		return monitorMap;
 	}
+	
 	public static ServerInfoFormMap usage(Sigar sigar) {
 		ServerInfoFormMap monitorMap = new ServerInfoFormMap();
 		try {

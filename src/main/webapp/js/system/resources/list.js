@@ -21,13 +21,13 @@ $(function() {
 		}, {
 			colkey : "resUrl",
 			name : "URL地址"
-		},{
+		}, {
 			colkey : "ishide",
 			name : "是否隐藏",
 			renderData : function(rowindex, data, rowdata, column) {
-				if(data=="0"){
+				if (data == "0") {
 					return "否";
-				}else if(data=="1"){
+				} else if (data == "1") {
 					return "是";
 				}
 			}
@@ -41,15 +41,15 @@ $(function() {
 		usePage : false,
 		records : "treelists",
 		treeGrid : {
-			type:1,
+			type : 1,
 			tree : true,
-			hide:false,
+			hide : false,
 			name : 'name',
-			id: "id",
-			pid: "parentId"
+			id : "id",
+			pid : "parentId"
 		}
 	});
-	$("#seach").click("click", function() {// 绑定查询按扭
+	$("#search").click("click", function() {// 绑定查询按扭
 		var searchParams = $("#searchForm").serializeJson();
 		grid.setOptions({
 			data : searchParams
@@ -65,11 +65,11 @@ $(function() {
 		delFun();
 	});
 	$("#lyGridUp").click("click", function() {// 上移
-		var jsonUrl=rootPath + '/background/resources/sortUpdate.shtml';
+		var jsonUrl = rootPath + '/background/resources/sortUpdate.shtml';
 		grid.lyGridUp(jsonUrl);
 	});
 	$("#lyGridDown").click("click", function() {// 下移
-		var jsonUrl=rootPath + '/background/resources/sortUpdate.shtml';
+		var jsonUrl = rootPath + '/background/resources/sortUpdate.shtml';
 		grid.lyGridDown(jsonUrl);
 	});
 });
