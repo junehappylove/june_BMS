@@ -1,7 +1,6 @@
 package com.june.controller.index;
 
 import java.io.BufferedInputStream;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,12 +31,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.june.common.Constants;
 import com.june.entity.ResFormMap;
 import com.june.entity.UserFormMap;
 import com.june.entity.UserLoginFormMap;
 import com.june.mapper.ResourcesMapper;
 import com.june.mapper.UserLoginMapper;
 import com.june.util.Common;
+import com.june.util.MessageUtil;
 import com.june.util.TreeObject;
 import com.june.util.TreeUtil;
 import com.mysql.jdbc.Connection;
@@ -73,10 +74,10 @@ public class BackgroundController extends BaseController {
 	public String login(String username, String password, HttpServletRequest request) {
 		try {
 			if (!request.getMethod().equals("POST")) {
-				request.setAttribute("error", "支持POST方法提交！");
+				request.setAttribute("error", Constants.ERROR_METHOD_POST);
 			}
 			if (Common.isEmpty(username) || Common.isEmpty(password)) {
-				request.setAttribute("error", "用户名或密码不能为空！");
+				request.setAttribute("error", Constants.ERROR_NOT_NULL_UP);
 				return "/login";
 			}
 			// 想要得到 SecurityUtils.getSubject()　的对象．．访问地址必须跟ｓｈｉｒｏ的拦截地址内．不然后会报空指针
@@ -89,15 +90,15 @@ public class BackgroundController extends BaseController {
 				user.login(token);
 			} catch (LockedAccountException lae) {
 				token.clear();
-				request.setAttribute("error", "用户已经被锁定不能登录，请与管理员联系！");
+				request.setAttribute("error", Constants.ERROR_USRE_LOCKED);
 				return "/login";
 			} catch (ExcessiveAttemptsException e) {
 				token.clear();
-				request.setAttribute("error", "账号：" + username + " 登录失败次数过多,锁定10分钟!");
+				request.setAttribute("error", MessageUtil.formatMessage("error_user_locked_10min", username));
 				return "/login";
 			} catch (AuthenticationException e) {
 				token.clear();
-				request.setAttribute("error", "用户或密码不正确！");
+				request.setAttribute("error", Constants.ERROR_USER_P_WORONG);
 				return "/login";
 			}
 			UserLoginFormMap userLogin = new UserLoginFormMap();
@@ -109,7 +110,7 @@ public class BackgroundController extends BaseController {
 			request.removeAttribute("error");
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("error", "登录异常，请联系管理员！");
+			request.setAttribute("error", Constants.ERROR_LOGIN_EXCEPTION);
 			return "/login";
 		}
 		return "redirect:index.shtml";
@@ -198,8 +199,7 @@ public class BackgroundController extends BaseController {
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout() {
 		// 使用权限管理工具进行用户的退出，注销登录
-		SecurityUtils.getSubject().logout(); // session
-												// 会销毁，在SessionListener监听session销毁，清理权限缓存
+		SecurityUtils.getSubject().logout(); // session 会销毁，在SessionListener监听session销毁，清理权限缓存
 		return "redirect:login.shtml";
 	}
 
@@ -221,7 +221,7 @@ public class BackgroundController extends BaseController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "初始化失败！请联系管理员" + e;
+			return MessageUtil.formatMessage("error_init_failed", e.toString());//"初始化失败！请联系管理员" + e;
 		}
 
 		return "/install";

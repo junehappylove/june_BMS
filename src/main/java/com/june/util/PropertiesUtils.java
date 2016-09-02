@@ -3,8 +3,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Iterator;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.ibatis.io.Resources;
 /**
@@ -39,8 +39,7 @@ public class PropertiesUtils {
 
 	public static void main(String[] args) {
 		Properties prop = new Properties();
-		InputStream in = PropertiesUtils.class
-				.getResourceAsStream("/config.properties");
+		InputStream in = PropertiesUtils.class.getResourceAsStream("/config.properties");
 		try {
 			prop.load(in);
 			Iterator<Entry<Object, Object>> itr = prop.entrySet().iterator();

@@ -94,4 +94,15 @@
 	<context:component-scan base-package="com.june.task" />
 	<!-- 隐式地向 Spring 容器注册 -->
 	<!-- <context:annotation-config /> -->
+	
+	<!-- 配制messages资源文件 -->
+	<bean id="langProperty" class="com.june.common.MessagePropertyPlaceholderConfiger">
+		<property name="ignoreResourceNotFound" value="true"></property>
+		<property name="locations">
+			<list>
+				<value>classpath:lang/message*.properties</value>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
 </beans>
