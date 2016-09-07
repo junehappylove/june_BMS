@@ -32,13 +32,13 @@ public class MonitorController extends BaseController {
 	
 	@Inject
 	private ServerInfoMapper serverInfoMapper ;
-	@RequestMapping("list")
+	@RequestMapping(LIST)
 	public String listUI() throws Exception {
 		return Common.BACKGROUND_PATH + "/system/monitor/list";
 	}
 	
 	@ResponseBody
-	@RequestMapping("findByPage")
+	@RequestMapping(FIND_BY_PAGE)
 	public PageView findByPage( String pageNow,
 			String pageSize) throws Exception {
 		ServerInfoFormMap serverInfoFormMap = getFormMap(ServerInfoFormMap.class);
@@ -84,7 +84,7 @@ public class MonitorController extends BaseController {
     public Map<String, Object> modifySer(String key,String value) throws Exception{
     	Map<String, Object> dataMap = new HashMap<String,Object>();
     	try {
-		// 从输入流中读取属性列表（键和元素对）
+    		// 从输入流中读取属性列表（键和元素对）
     		PropertiesUtils.modifyProperties(key, value);
 		} catch (Exception e) {
 			dataMap.put(PARAM_FLAG, false);

@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 
 import com.june.annotation.TableSeg;
 import com.june.util.FormMap;
+import com.june.util.MessageUtil;
 
 /**
  * Mybatis的分页查询插件，通过拦截StatementHandler的prepare方法来实现。
@@ -36,23 +37,21 @@ import com.june.util.FormMap;
  * @Email: wjw.happy.love@163.com
  * @version 3.0v
  */
-@SuppressWarnings("unchecked")
 @Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
 public class PagePlugin implements Interceptor {
 	public final static Logger logger = Logger.getLogger(PagePlugin.class);
 	private static String dialect = null;// 数据库类型
 	private static String pageSqlId = ""; // mybaits的数据库xml映射文件中需要拦截的ID(正则匹配)
-
-	@SuppressWarnings("rawtypes")
+	
+	@Override
 	public Object intercept(Invocation ivk) throws Throwable {
 		if (ivk.getTarget() instanceof RoutingStatementHandler) {
 			RoutingStatementHandler statementHandler = (RoutingStatementHandler) ivk.getTarget();
-			BaseStatementHandler delegate = (BaseStatementHandler) ReflectHelper.getValueByFieldName(statementHandler,
-					"delegate");
-			MappedStatement mappedStatement = (MappedStatement) ReflectHelper.getValueByFieldName(delegate,
-					"mappedStatement");
+			BaseStatementHandler delegate = (BaseStatementHandler) ReflectHelper.getValueByFieldName(statementHandler, "delegate");
+			MappedStatement mappedStatement = (MappedStatement) ReflectHelper.getValueByFieldName(delegate, "mappedStatement");
 			/**
-			 * 方法1：通过ＩＤ来区分是否需要分页．.*query.* 方法2：传入的参数是否有page参数，如果有，则分页，
+			 * 方法1：通过ID来区分是否需要分页．.*query.* <br>
+			 * 方法2：传入的参数是否有page参数，如果有，则分页.
 			 */
 			// if (mappedStatement.getId().matches(pageSqlId)) { // 拦截需要分页的SQL
 			BoundSql boundSql = delegate.getBoundSql();
@@ -66,27 +65,29 @@ public class PagePlugin implements Interceptor {
 					Connection connection = (Connection) ivk.getArgs()[0];
 					// parameterObject = toHashMap(model, pageView);
 					// 公共方法被调用
-					Map formMap = null;
+					Map<String, Object> formMap = null;
 					if (parameterObject instanceof FormMap) {
 						formMap = toHashMap(parameterObject);
 					} else if (parameterObject instanceof Map) {
-						Map map = (Map) parameterObject;
+						Map<?, ?> map = (Map<?, ?>) parameterObject;
 						if (map.containsKey("list")) {
-							List<Object> lists = (List<Object>) map.get("list");
+							@SuppressWarnings("unchecked")
+							List<Object> lists = (List<Object>) (map.get("list"));
 							String sql = Plugin.joinSql(connection, mappedStatement, boundSql, formMap, lists);
 							ReflectHelper.setValueByFieldName(boundSql, "sql", sql);
 							return ivk.proceed();
 						} else if ("HashMap".equals(parameterObject.getClass().getSimpleName())) {
 							return ivk.proceed();
 						} else {
-							Class fm = (Class) map.get("param3");
+							// TODO ???
+							Class<?> fm = (Class<?>) map.get("param3");
 							Object o = fm.newInstance();
 							formMap = toHashMap(o);
 							formMap.put("key", map.get("param1"));
 							formMap.put("value", map.get("param2"));
 						}
 					} else {
-						throw new NullPointerException("调用公共方法，传入参数有错误！具体请看参数说明！");
+						throw new NullPointerException(MessageUtil.resource("error_base_method"));
 					}
 					String sql = Plugin.joinSql(connection, mappedStatement, boundSql, formMap, null);
 					ReflectHelper.setValueByFieldName(boundSql, "sql", sql);
@@ -153,7 +154,7 @@ public class PagePlugin implements Interceptor {
 			countStmt = null;
 			pageView.setRowCount(count);
 		} catch (Exception e) {
-			PagePlugin.logger.error(countSql + " 统计Sql出错,自动转换为普通统计Sql语句!");
+			logger.error(MessageUtil.resource("error_statis", countSql));
 			countSql = "select count(1) from (" + sql + ") tmp_count";
 			countStmt = connection.prepareStatement(countSql);
 			rs = countStmt.executeQuery();
@@ -216,14 +217,14 @@ public class PagePlugin implements Interceptor {
 		return toSql;
 	}
 
-	public static void main(String[] args) {
-		String sql = "  select " + "	articleNo "
-				+ " from article left jion aefv where 1=(SELECT userName from ly_userinfo u where u.id=userId) "
-				+ "and id = sdf   order by as asc";
-		sql = removeOrderBys(sql);
-		System.out.println(sql);
-		System.out.println(suffixStr(sql));
-	}
+//	public static void main(String[] args) {
+//		String sql = "  select " + "	articleNo "
+//				+ " from article left jion aefv where 1=(SELECT userName from ly_userinfo u where u.id=userId) "
+//				+ "and id = sdf   order by as asc";
+//		sql = removeOrderBys(sql);
+//		System.out.println(sql);
+//		System.out.println(suffixStr(sql));
+//	}
 
 	/**
 	 * 去除Sql的orderBy。
@@ -358,17 +359,19 @@ public class PagePlugin implements Interceptor {
 	}
 
 	public Map<String, Object> toHashMap(Object parameterObject) {
-		Map<String, Object> froMmap = (FormMap<String, Object>) parameterObject;
+		@SuppressWarnings("unchecked")
+		Map<String, Object> froMmap =  (Map<String, Object>) parameterObject;
 		try {
 			String name = parameterObject.getClass().getName();
 			Class<?> clazz = Class.forName(name);
 			boolean flag = clazz.isAnnotationPresent(TableSeg.class); // 某个类是不是存在TableSeg注解
 			if (flag) {
 				TableSeg table = (TableSeg) clazz.getAnnotation(TableSeg.class);
-				logger.info(" 公共方法被调用,传入参数 ==>> " + froMmap);
+				logger.info(MessageUtil.resource("info_call_method",froMmap.toString()));
+				// TODO change the 'ly_'
 				froMmap.put("ly_table", table.tableName());
 			} else {
-				throw new NullPointerException("在" + name + " 没有找到数据库表对应该的注解!");
+				throw new NullPointerException(MessageUtil.resource("warn_not_find_anno", name));
 			}
 			return froMmap;
 		} catch (Exception e) {

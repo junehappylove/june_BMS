@@ -27,7 +27,8 @@ import com.june.util.Common;
  * @Email：wjw.happy.love@163.com @date：2014-12-05
  */
 public class UploadUtil {
-	private String imagePath = "/uploadFile/" + new SimpleDateFormat("yyyyMMddHH").format(new Date()) + "";// 配置图片路径
+	private static final String SEP = File.separator;
+	private String imagePath = SEP + "uploadFile" + SEP + new SimpleDateFormat("yyyyMMddHH").format(new Date()) + "";// 配置图片路径
 
 	/**
 	 * 
@@ -54,7 +55,7 @@ public class UploadUtil {
 		String fileNewName = Common.generateFileName(getUploadFileName);
 
 		// 最后返回图片路径
-		imagePath = imagePath + "/" + fileNewName;
+		imagePath = imagePath + SEP + fileNewName;
 
 		BufferedImage srcBufferImage = ImageIO.read(file.getInputStream());
 		BufferedImage scaledImage;
@@ -65,7 +66,7 @@ public class UploadUtil {
 		// 如果上传图片 宽高 比 压缩的要小 则不压缩
 		if (w > yw && h > yh) {
 			FileOutputStream fos = null;
-			fos = new FileOutputStream(getImagePath + "/" + fileNewName);
+			fos = new FileOutputStream(getImagePath + SEP + fileNewName);
 
 			FileInputStream fis = (FileInputStream) file.getInputStream();
 			byte[] buffer = new byte[1024];
@@ -77,7 +78,7 @@ public class UploadUtil {
 			fos.close();
 		} else {
 			scaledImage = scaleImage.imageZoomOut(srcBufferImage, w, h);
-			FileOutputStream out = new FileOutputStream(getImagePath + "/" + fileNewName);
+			FileOutputStream out = new FileOutputStream(getImagePath + SEP + fileNewName);
 			ImageIO.write(scaledImage, "jpeg", out);
 		}
 	}

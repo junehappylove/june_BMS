@@ -1,12 +1,12 @@
 package com.june.controller.index;
 
 import java.util.Enumeration;
-
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -29,6 +29,7 @@ import com.june.util.MessageUtil;
 public class BaseController {
 	@Inject
 	private ResourcesMapper resourcesMapper;
+	public static final Logger logger = Logger.getLogger(BaseController.class);
 
 	public PageView pageView = null;
 
@@ -159,7 +160,7 @@ public class BaseController {
 				}
 			}
 			if (!Common.isEmpty(order) && !Common.isEmpty(sort))
-				map.put(PARAM_ORDER_BY, MessageUtil.formatMessage(ORDER_BY, order, sort));
+				map.put(PARAM_ORDER_BY, MessageUtil.resource(ORDER_BY, order, sort));
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -221,6 +222,15 @@ public class BaseController {
 	public static final String PARAM_FLAG = Constants.PARAM_FLAG;
 	public static final String PARAM_TYPE = Constants.PARAM_TYPE;
 	public static final String PARAM_WHERE = Constants.PARAM_WHERE;
-	public static final String NULL = "";
 	public static final String SUCCESS = Constants.FLAG_SUCCESS;
+	public static final String NULL = Constants.NULL;
+	public static final String FIND_BY_PAGE = "findByPage";
+	public static final String LIST = "list";
+	public static final String LIST_UI = "listUI";
+	public static final String ADD_UI = "addUI";
+	public static final String ADD_ENTITY = "addEntity";
+	public static final String DELETE_ENT = "deleteEntity";
+	public static final String EDIT_UI = "editUI";
+	public static final String EDIT_ENTITY = "editEntity";
+	
 }

@@ -26,23 +26,22 @@ public class LogController extends BaseController {
 	@Inject
 	private LogMapper logMapper;
 
-	@RequestMapping("list")
+	@RequestMapping(LIST)
 	public String listUI(Model model) throws Exception {
 		return Common.BACKGROUND_PATH + "/system/log/list";
 	}
 
 	@ResponseBody
-	@RequestMapping("findByPage")
+	@RequestMapping(FIND_BY_PAGE)
 	public PageView findByPage( String pageNow,
 			String pageSize,String column,String sort) throws Exception {
 		LogFormMap logFormMap = getFormMap(LogFormMap.class);
 		String order = "";
 		if(Common.isNotEmpty(column)){
-			order = MessageUtil.formatMessage(ORDER_BY, column, sort);
+			order = MessageUtil.resource(ORDER_BY, column, sort);
 		}else{
 			order = ORDER_BY_ID_ASC;
 		}
-		
 		logFormMap.put("$orderby", order);
 		logFormMap=toFormMap(logFormMap, pageNow, pageSize,logFormMap.getStr(PARAM_ORDER_BY));
         pageView.setRecords(logMapper.findByPage(logFormMap));

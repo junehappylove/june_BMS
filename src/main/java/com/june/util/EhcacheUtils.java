@@ -536,29 +536,28 @@ public class EhcacheUtils {
 
 	private static void checkCacheManager() {
 		if (null == cacheManager) {
-			throw new IllegalArgumentException("调用前请先初始化CacheManager值：EHCacheUtil.initCacheManager");
+			throw new IllegalArgumentException(MessageUtil.resource("error_ehcache_manager"));
 		}
 	}
 
 	private static void checkCache() {
 		if (null == cache) {
-			throw new IllegalArgumentException("调用前请先初始化Cache值：EHCacheUtil.initCache(参数)");
+			throw new IllegalArgumentException(MessageUtil.resource("error_ehcache_cache"));
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public static void main(String[] arg) {
-		// 初始化--必须
-		EhcacheUtils.initCacheManager();
-		EhcacheUtils.initCache("cache");
-		EhcacheUtils.put("A", "AAAAA");
-		EhcacheUtils.put("B", "BBBBB");
-		EhcacheUtils.put("F", "FFFFF");
-		System.out.println(EhcacheUtils.get("F"));
-		List keys = EhcacheUtils.getKeys();
-		for (int i = 0; i < keys.size(); i++) {
-			System.out.println(keys.get(i));
-		}
-		EhcacheUtils.shutdown();
-	}
+//	public static void main(String[] arg) {
+//		// 初始化--必须
+//		EhcacheUtils.initCacheManager();
+//		EhcacheUtils.initCache("cache");
+//		EhcacheUtils.put("A", "AAAAA");
+//		EhcacheUtils.put("B", "BBBBB");
+//		EhcacheUtils.put("F", "FFFFF");
+//		System.out.println(EhcacheUtils.get("F"));
+//		List keys = EhcacheUtils.getKeys();
+//		for (int i = 0; i < keys.size(); i++) {
+//			System.out.println(keys.get(i));
+//		}
+//		EhcacheUtils.shutdown();
+//	}
 }

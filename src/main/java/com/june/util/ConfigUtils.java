@@ -55,7 +55,7 @@ public class ConfigUtils {
 					EhcacheUtils.put(ble, m);//某表对应的主键和字段放到缓存
 			}
 		} catch (Exception e) {
-			logger.error(" 初始化数据失败,没法加载表字段到缓存 -->> "+e.fillInStackTrace());
+			logger.error(MessageUtil.resource("error_loading_wrong",e.getMessage()));
 			e.printStackTrace();
 		} 
 	}

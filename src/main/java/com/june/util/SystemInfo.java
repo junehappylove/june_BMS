@@ -26,19 +26,19 @@ public class SystemInfo {
 		try {
 			addr = InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
-			ip = "无法获取主机IP";
-			hostName = "无法获取主机名";
+			ip = MessageUtil.resource("info_ip_no_addr");
+			hostName = MessageUtil.resource("info_ip_no_name");
 		}
 		if (null != addr) {
 			try {
 				ip = addr.getHostAddress();
 			} catch (Exception e) {
-				ip = "无法获取主机IP";
+				ip = MessageUtil.resource("info_ip_no_addr");
 			}
 			try {
 				hostName = addr.getHostName();
 			} catch (Exception e) {
-				hostName = "无法获取主机名";
+				hostName = MessageUtil.resource("info_ip_no_name");
 			}
 		}
 		monitorMap.put("hostIp", ip);// 本地ip地址
@@ -139,7 +139,6 @@ public class SystemInfo {
 			case 1: // TYPE_NONE
 				break;
 			case 2: // TYPE_LOCAL_DISK : 本地硬盘
-
 				monitorMap.put("diskName", fs.getDevName());// 系统盘名称
 				monitorMap.put("diskType", fs.getSysTypeName());// 盘类型
 				// 文件系统总大小

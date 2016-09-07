@@ -94,7 +94,7 @@ public class BackgroundController extends BaseController {
 				return "/login";
 			} catch (ExcessiveAttemptsException e) {
 				token.clear();
-				request.setAttribute("error", MessageUtil.formatMessage("error_user_locked_10min", username));
+				request.setAttribute("error", MessageUtil.resource("error_user_locked_10min", username));
 				return "/login";
 			} catch (AuthenticationException e) {
 				token.clear();
@@ -137,7 +137,7 @@ public class BackgroundController extends BaseController {
 		}
 		TreeUtil treeUtil = new TreeUtil();
 		List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0);
-		model.addAttribute("list", ns);
+		model.addAttribute(LIST, ns);
 		// 登陆的信息回传页面
 		model.addAttribute("userFormMap", userFormMap);
 		return "/index";
@@ -221,7 +221,7 @@ public class BackgroundController extends BaseController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return MessageUtil.formatMessage("error_init_failed", e.toString());//"初始化失败！请联系管理员" + e;
+			return MessageUtil.resource("error_init_failed", e.toString());//"初始化失败！请联系管理员" + e;
 		}
 
 		return "/install";

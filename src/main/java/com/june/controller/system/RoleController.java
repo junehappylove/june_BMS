@@ -32,14 +32,14 @@ public class RoleController extends BaseController {
 	@Inject
 	private RoleMapper roleMapper;
 
-	@RequestMapping("list")
+	@RequestMapping(LIST)
 	public String listUI(Model model) throws Exception {
 		model.addAttribute("res", findByRes());
 		return Common.BACKGROUND_PATH + "/system/role/list";
 	}
 
 	@ResponseBody
-	@RequestMapping("findByPage")
+	@RequestMapping(FIND_BY_PAGE)
 	public PageView findByPage(String pageNow,
 			String pageSize) throws Exception {
 		RoleFormMap roleFormMap = getFormMap(RoleFormMap.class);
@@ -48,13 +48,13 @@ public class RoleController extends BaseController {
 		return pageView;
 	}
 
-	@RequestMapping("addUI")
+	@RequestMapping(ADD_UI)
 	public String addUI(Model model) throws Exception {
 		return Common.BACKGROUND_PATH + "/system/role/add";
 	}
 
 	@ResponseBody
-	@RequestMapping("addEntity")
+	@RequestMapping(ADD_ENTITY)
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="组管理-新增组")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String addEntity() throws Exception {
@@ -64,7 +64,7 @@ public class RoleController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("deleteEntity")
+	@RequestMapping(DELETE_ENT)
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="组管理-删除组")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String deleteEntity() throws Exception {
@@ -75,7 +75,7 @@ public class RoleController extends BaseController {
 		return "success";
 	}
 
-	@RequestMapping("editUI")
+	@RequestMapping(EDIT_UI)
 	public String editUI(Model model) throws Exception {
 		String id = getPara(PARAM_ID);
 		if(Common.isNotEmpty(id)){
@@ -85,7 +85,7 @@ public class RoleController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("editEntity")
+	@RequestMapping(EDIT_ENTITY)
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="组管理-修改组")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String editEntity() throws Exception {
@@ -109,7 +109,7 @@ public class RoleController extends BaseController {
 			model.addAttribute("txtRoleSelect", ugid);
 			model.addAttribute("userRole", list);
 			if(StringUtils.isNotBlank(ugid)){
-				String where = MessageUtil.formatMessage(WHERE_NOT_IN, PARAM_ID,ugid);
+				String where = MessageUtil.resource(WHERE_NOT_IN, PARAM_ID,ugid);
 				roleFormMap.put(PARAM_WHERE, where);
 			}
 		}

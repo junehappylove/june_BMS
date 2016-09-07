@@ -40,20 +40,20 @@ public class UserController extends BaseController {
 	@Inject
 	private UserMapper userMapper;
 	
-	@RequestMapping("list")
+	@RequestMapping(LIST)
 	public String listUI(Model model) throws Exception {
 		model.addAttribute("res", findByRes());
 		return Common.BACKGROUND_PATH + "/system/user/list";
 	}
 
 	@ResponseBody
-	@RequestMapping("findByPage")
+	@RequestMapping(FIND_BY_PAGE)
 	public PageView findByPage( String pageNow,
 			String pageSize,String column,String sort) throws Exception {
 		UserFormMap userFormMap = getFormMap(UserFormMap.class);
 		userFormMap=toFormMap(userFormMap, pageNow, pageSize,userFormMap.getStr(PARAM_ORDER_BY));
-		userFormMap.put("column", column);
-		userFormMap.put("sort", sort);
+		userFormMap.put(PARAM_COLUMN, column);
+		userFormMap.put(PARAM_SORT, sort);
         pageView.setRecords(userMapper.findUserPage(userFormMap));//不调用默认分页,调用自已的mapper中findUserPage
         return pageView;
 	}
@@ -77,13 +77,13 @@ public class UserController extends BaseController {
 		POIUtils.exportToExcel(response, listMap, lis, fileName);
 	}
 
-	@RequestMapping("addUI")
+	@RequestMapping(ADD_UI)
 	public String addUI(Model model) throws Exception {
 		return Common.BACKGROUND_PATH + "/system/user/add";
 	}
 
 	@ResponseBody
-	@RequestMapping("addEntity")
+	@RequestMapping(ADD_ENTITY)
 	@SystemLog(module="系统管理",methods="用户管理-新增用户")//凡需要处理业务逻辑的.都需要记录操作日志
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	public String addEntity(String txtGroupsSelect){
@@ -110,7 +110,7 @@ public class UserController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("deleteEntity")
+	@RequestMapping(DELETE_ENT)
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="用户管理-删除用户")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String deleteEntity() throws Exception {
@@ -123,7 +123,7 @@ public class UserController extends BaseController {
 		return "success";
 	}
 
-	@RequestMapping("editUI")
+	@RequestMapping(EDIT_UI)
 	public String editUI(Model model) throws Exception {
 		String id = getPara(PARAM_ID);
 		if(Common.isNotEmpty(id)){
@@ -133,7 +133,7 @@ public class UserController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("editEntity")
+	@RequestMapping(EDIT_ENTITY)
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="用户管理-修改用户")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String editEntity(String txtGroupsSelect) throws Exception {

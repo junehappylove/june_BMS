@@ -3,8 +3,8 @@ package com.june.plugin;
 import java.lang.reflect.Field;
 
 /**
- * @author Administrator
  *	反射工具
+ * @author Administrator
  */
 public class ReflectHelper {
 	/**

@@ -82,7 +82,7 @@ public class TreeUtil {
                 recursionFn(list, node,prefix);
             }
             // 二、遍历所有的父节点下的所有子节点
-            /*if (node.getParentId()==0) {
+           /* if (node.getParentId()==0) {
                 recursionFn(list, node);
             }*/
         }
@@ -110,18 +110,18 @@ public class TreeUtil {
 	}
 	
 	// 本地模拟数据测试
-	public void main(String[] args) {
-		/*long start = System.currentTimeMillis();
-		List<TreeObject> TreeObjectList = new ArrayList<TreeObject>();
-		
-		TreeObjectUtil mt = new TreeObjectUtil();
-		List<TreeObject> ns=mt.getChildTreeObjects(TreeObjectList,0);
-		for (TreeObject m : ns) {
-			System.out.println(m.getName());
-			System.out.println(m.getChildren());
-		}
-		long end = System.currentTimeMillis();
-		System.out.println("用时:" + (end - start) + "ms");*/
-	}
+//	public void main(String[] args) {
+//		long start = System.currentTimeMillis();
+//		List<TreeObject> TreeObjectList = new ArrayList<TreeObject>();
+//		
+//		TreeObjectUtil mt = new TreeObjectUtil();
+//		List<TreeObject> ns=mt.getChildTreeObjects(TreeObjectList,0);
+//		for (TreeObject m : ns) {
+//			System.out.println(m.getName());
+//			System.out.println(m.getChildren());
+//		}
+//		long end = System.currentTimeMillis();
+//		System.out.println("用时:" + (end - start) + "ms");
+//	}
 	
 }

@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.june.annotation.TableSeg;
+import com.june.common.Constants;
 
 public class Common {
 	// 后台访问
@@ -327,9 +328,9 @@ public class Common {
 		try {
 			PropertiesUtils.modifyProperties(key, value);
 		} catch (Exception e) {
-			dataMap.put("flag", false);
+			dataMap.put(Constants.PARAM_FLAG, false);
 		}
-		dataMap.put("flag", true);
+		dataMap.put(Constants.PARAM_FLAG, true);
 		return dataMap;
 	}
 

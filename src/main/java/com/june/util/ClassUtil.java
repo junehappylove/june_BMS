@@ -9,6 +9,13 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+/**
+ * 
+ * Class工具类 <br>
+ * 
+ * @author 王俊伟 wjw.happy.love@163.com
+ * @date 2016年9月7日 下午5:16:24
+ */
 public class ClassUtil {
 
 	public static void main(String[] args) throws Exception {

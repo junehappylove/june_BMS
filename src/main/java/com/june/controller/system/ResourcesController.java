@@ -45,7 +45,7 @@ public class ResourcesController extends BaseController {
 	@RequestMapping("treelists")
 	public ResFormMap findByPage(Model model) {
 		ResFormMap resFormMap = getFormMap(ResFormMap.class);
-		String order = MessageUtil.formatMessage(ORDER_BY_ASC, "level");//" order by level asc";
+		String order = MessageUtil.resource(ORDER_BY_ASC, "level");//" order by level asc";
 		resFormMap.put("$orderby", order);
 		List<ResFormMap> mps = resourcesMapper.findByNames(resFormMap);
 		List<TreeObject> list = new ArrayList<TreeObject>();
@@ -82,7 +82,7 @@ public class ResourcesController extends BaseController {
 	 *            存放返回界面的model
 	 * @return
 	 */
-	@RequestMapping("list")
+	@RequestMapping(LIST)
 	public String list(Model model) {
 		model.addAttribute("res", findByRes());
 		return Common.BACKGROUND_PATH + "/system/resources/list";
@@ -96,7 +96,7 @@ public class ResourcesController extends BaseController {
 	 *            修改菜单信息ID
 	 * @return
 	 */
-	@RequestMapping("editUI")
+	@RequestMapping(EDIT_UI)
 	public String editUI(Model model) {
 		String id = getPara(PARAM_ID);
 		if(Common.isNotEmpty(id)){
@@ -110,7 +110,7 @@ public class ResourcesController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("addUI")
+	@RequestMapping(ADD_UI)
 	public String addUI(Model model) {
 		return Common.BACKGROUND_PATH + "/system/resources/add";
 	}
@@ -145,13 +145,13 @@ public class ResourcesController extends BaseController {
 	 * @return Map
 	 * @throws Exception
 	 */
-	@RequestMapping("addEntity")
+	@RequestMapping(ADD_ENTITY)
 	@ResponseBody
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="资源管理-新增资源")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String addEntity() throws Exception {
 		ResFormMap resFormMap = getFormMap(ResFormMap.class);
-		if("2".equals(resFormMap.get("type"))){
+		if("2".equals(resFormMap.get(PARAM_TYPE))){
 			resFormMap.put("description", Common.htmltoString(resFormMap.get("description")+""));
 		}
 		Object o = resFormMap.get("ishide");
@@ -172,12 +172,12 @@ public class ResourcesController extends BaseController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping("editEntity")
+	@RequestMapping(EDIT_ENTITY)
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="资源管理-修改资源")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String editEntity(Model model) throws Exception {
 		ResFormMap resFormMap = getFormMap(ResFormMap.class);
-		if("2".equals(resFormMap.get("type"))){
+		if("2".equals(resFormMap.get(PARAM_TYPE))){
 			resFormMap.put("description", Common.htmltoString(resFormMap.get("description")+""));
 		}
 		Object o = resFormMap.get("ishide");
@@ -197,7 +197,7 @@ public class ResourcesController extends BaseController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping("deleteEntity")
+	@RequestMapping(DELETE_ENT)
 	@SystemLog(module="系统管理",methods="资源管理-删除资源")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String deleteEntity(Model model) throws Exception {
 		String[] ids = getParaValues(PARAM_IDS);

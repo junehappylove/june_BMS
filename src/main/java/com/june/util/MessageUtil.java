@@ -33,11 +33,11 @@ public class MessageUtil {
 	 * @param params
 	 * @return
 	 */
-	public static String formatMessage(String msgId,String... params){
+	public static String resource(String msgId,String... params){
 		if(params!=null){
 			return formatMessage_(msgId, params);
 		}else{
-			return resourceValue(msgId);
+			return resource(msgId);
 		}
 	}
 	
@@ -46,20 +46,11 @@ public class MessageUtil {
 	 * @param key
 	 * @return: String
 	 */
-	public static String resourceValue(String key) {
+	public static String resource(String key) {
 		return getMessage(key);
 	}
 
-	/**
-	 * 设定message
-	 * 
-	 * @param message
-	 *            MessagesDTO
-	 * @param messageParam
-	 *            String[]
-	 * @return String
-	 * @throws SpaceParameterException
-	 */
+	// 设定message
 	private static String setMessageByParam(String message, String[] messageParam) throws Exception {
 		MessageFormat messageFormat = new MessageFormat(message);
 		return messageFormat.format(messageParam);

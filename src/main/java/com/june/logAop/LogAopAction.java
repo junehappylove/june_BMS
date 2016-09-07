@@ -21,6 +21,7 @@ import com.june.annotation.SystemLog;
 import com.june.entity.LogFormMap;
 import com.june.mapper.LogMapper;
 import com.june.util.Common;
+import com.june.util.MessageUtil;
 
 /**
  * 日志切点类
@@ -61,23 +62,25 @@ public class LogAopAction {
 		try {
 			ip = SecurityUtils.getSubject().getSession().getHost();
 		} catch (Exception ee) {
-			ip = "无法获取登录用户Ip";
+			ip = MessageUtil.resource("error_ip");
 		}
 		try {
 			map = getControllerMethodDescription(point);
 			// 登录名
 			user = SecurityUtils.getSubject().getPrincipal().toString();
 			if (Common.isEmpty(user)) {
-				user = "无法获取登录用户信息！";
+				user = MessageUtil.resource("error_login_user");
 			}
 		} catch (Exception ee) {
-			user = "无法获取登录用户信息！";
+			user = MessageUtil.resource("error_login_user");
 		}
 
 		logForm.put("accountName", user);
 		logForm.put("module", map.get("module"));
-		logForm.put("methods", "<font color=\"red\">执行方法异常:-->" + map.get("methods") + "</font>");
-		logForm.put("description", "<font color=\"red\">执行方法异常:-->" + e + "</font>");
+		String method = MessageUtil.resource("error_method_wrong", map.get("methods").toString());
+		logForm.put("methods", method);
+		method = MessageUtil.resource("error_method_wrong", e.getMessage());
+		logForm.put("description", method);
 		logForm.put("actionTime", "0");
 		logForm.put("userIP", ip);
 		try {
@@ -109,16 +112,16 @@ public class LogAopAction {
 		try {
 			ip = SecurityUtils.getSubject().getSession().getHost();
 		} catch (Exception e) {
-			ip = "无法获取登录用户Ip";
+			ip = MessageUtil.resource("error_ip");
 		}
 		try {
 			// 登录名
 			user = SecurityUtils.getSubject().getPrincipal().toString();
 			if (Common.isEmpty(user)) {
-				user = "无法获取登录用户信息！";
+				user = MessageUtil.resource("error_login_user");
 			}
 		} catch (Exception e) {
-			user = "无法获取登录用户信息！";
+			user = MessageUtil.resource("error_login_user");
 		}
 		// 当前用户
 		try {
@@ -140,15 +143,15 @@ public class LogAopAction {
 			logForm.put("userIP", ip);
 			logMapper.addEntity(logForm);
 			// *========控制台输出=========*//
-			System.out.println("=====通知开始=====");
-			System.out.println("请求方法:" + className + "." + methodName + "()");
-			System.out.println("方法描述:" + map);
-			System.out.println("请求IP:" + ip);
-			System.out.println("=====通知结束=====");
+			System.err.println("=====通知开始=====");
+			System.err.println("请求方法:" + className + "." + methodName + "()");
+			System.err.println("方法描述:" + map);
+			System.err.println("请求IP:" + ip);
+			System.err.println("=====通知结束=====");
 		} catch (Exception e) {
 			// 记录本地异常日志
 			logger.error("====通知异常====");
-			logger.error("异常信息:{}", e.getMessage());
+			logger.error("异常信息:{0}", e.getMessage());
 		}
 		return result;
 	}
@@ -170,13 +173,14 @@ public class LogAopAction {
 		Method[] methods = targetClass.getMethods();
 		for (Method method : methods) {
 			if (method.getName().equals(methodName)) {
+				@SuppressWarnings("rawtypes")
 				Class[] clazzs = method.getParameterTypes();
 				if (clazzs.length == arguments.length) {
 					map.put("module", method.getAnnotation(SystemLog.class).module());
 					map.put("methods", method.getAnnotation(SystemLog.class).methods());
 					String de = method.getAnnotation(SystemLog.class).description();
 					if (Common.isEmpty(de))
-						de = "执行成功!";
+						de = MessageUtil.resource("info_run_success");
 					map.put("description", de);
 					break;
 				}

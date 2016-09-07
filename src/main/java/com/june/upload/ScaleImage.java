@@ -4,8 +4,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * @author june
- * @Email：wjw.happy.love@163.com 
- * @date：2014-12-05
+ * @Email：wjw.happy.love@163.com @date：2014-12-05
  */
 public class ScaleImage {
 	private int width;
@@ -298,10 +297,5 @@ public class ScaleImage {
 			return 255;
 		return x;
 	}
-
-	/**
-	 * End: Use Lanczos filter to replace the original algorithm for image
-	 * scaling. Lanczos improves quality of the scaled image modify by :blade
-	 */
 
 }
