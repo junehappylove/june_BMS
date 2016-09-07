@@ -1,1 +1,6 @@
 /target/
+/.settings/
+.buildpath
+.classpath
+.project
+/src/main/resources/jdbc.properties
