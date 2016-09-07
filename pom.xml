@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>june</groupId>
-	<artifactId>june_BMS</artifactId>
+	<groupId>com.judy</groupId>
+	<artifactId>june</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>june Maven Webapp</name>
+	<name>june_BMS</name>
 	<url>http://maven.apache.org</url>
 	<!-- 项目属性 -->
 	<properties>
@@ -184,10 +184,17 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 
-		<!-- GENERAL UTILS begin <dependency> <groupId>org.apache.commons</groupId> 
-			<artifactId>commons-lang3</artifactId> <version>${commons-lang3.version}</version> 
-			</dependency> <dependency> <groupId>commons-codec</groupId> <artifactId>commons-codec</artifactId> 
-			<version>${commons-codec.version}</version> </dependency> -->
+		<!-- GENERAL UTILS begin -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
