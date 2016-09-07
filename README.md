@@ -10,18 +10,21 @@
 ### 进度
 > 1. 160902 添加国际化支持
 > 2. 160901 修改若干bug,增强系统稳定性
+> 3. 160906 整理邮件发送，密码应该设置为注册邮箱后，设置的授权码，而不是登陆邮箱的密码，否则验证不通过
+> 4. 160906 新增MessageUtil工具类，方便读取.properties资源文件
+> 5. 160906 格式化代码，完善messages_zh.properties文件
 
 ### 下一步计划
-1. 添加国际化支持 在java代码中发现大量的中文字符，看着不舒服.
-2. 回归mybitas，尽量减少对源码的修改;
-3. 增加系统功能 权限管理可能需要重构.
+> 1. 添加国际化支持 在java代码中发现大量的中文字符，看着不舒服.
+> 2. 回归原生的mybitas，尽量减少对mybitas源码的修改;
+> 3. 增加系统功能 权限管理可能需要重构.
 
 =============================
 
 # JUNE开源系统介绍
 接管开源大业，任重而道远也 by june @ 2016-09-01
-1.  听说原系统要修费了，收费就收费吧，我们接着搞起...
-2.  版本1.0v,源码在[这里](https://github.com/junehappylove/june_BMS)
+> 1. 听说原系统要修费了，收费就收费吧，我们接着搞起...
+> 2. 版本1.0v,源码在[这里](https://github.com/junehappylove/june_BMS)
 
 ## 关于1.0新版本的说明：
 
@@ -41,18 +44,18 @@
 * 为何愿意使用Apache Shiro ?请看:[这里](http://www.infoq.com/cn/articles/apache-shiro)
 
 ### 技术要点：
-1. 此版本采用ajax+js分页,表格lyGrid分页插件是群主自己写的,有点模仿ligerui的分页实现.
-2. 列表的表头固定,兼容IE,firefox,google,360的浏览器,其他暂没有测试.
-3. 表格排序功能.
-4. 弹窗采用贤心的插件，请看:[这里](http://sentsin.com/jquery/layer/)
-5. 加入druid技术,对sql语句的监控.
-6. 自定义注解导出excel.
-7. 使用了ehcache缓存机制.
-8. 新增支持oracle分页实现.
-9. 新增支持SQLserver2008分页实现.
-10. 解决分页参数没法传到后台的问题.
-11. 异常统一处理.
-12. 使用Spring Security3权限安全机制,采用了shiro权限机制.
-13. 封装好baseSerive,baseSeriveImpl,baseMapper..服务层，持久层统一调用.
-14. ........
+> 1. 此版本采用ajax+js分页,表格lyGrid分页插件是群主自己写的,有点模仿ligerui的分页实现.
+> 2. 列表的表头固定,兼容IE,firefox,google,360的浏览器,其他暂没有测试.
+> 3. 表格排序功能.
+> 4. 弹窗采用贤心的插件，请看:[这里](http://sentsin.com/jquery/layer/)
+> 5. 加入druid技术,对sql语句的监控.
+> 6. 自定义注解导出excel.
+> 7. 使用了ehcache缓存机制.
+> 8. 新增支持oracle分页实现.
+> 9. 新增支持SQLserver2008分页实现.
+> 10. 解决分页参数没法传到后台的问题.
+> 11. 异常统一处理.
+> 12. 使用Spring Security3权限安全机制,采用了shiro权限机制.
+> 13. 封装好baseSerive,baseSeriveImpl,baseMapper..服务层，持久层统一调用.
+> 14. ........
 
