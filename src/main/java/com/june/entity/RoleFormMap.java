@@ -1,6 +1,7 @@
 package com.june.entity;
 
 import com.june.annotation.TableSeg;
+import com.june.common.Constants;
 import com.june.util.FormMap;
 
 
@@ -8,7 +9,7 @@ import com.june.util.FormMap;
 /**
  * 实体表
  */
-@TableSeg(tableName = "ly_role", id="id")
+@TableSeg(tableName = "ly_role", id=Constants.PARAM_ID)
 public class RoleFormMap extends FormMap<String,Object>{
 
 	/**

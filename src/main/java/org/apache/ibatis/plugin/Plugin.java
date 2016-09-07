@@ -22,20 +22,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.io.ResolverUtil;
-import org.apache.ibatis.jdbc.SqlRunner;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
-import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.reflection.ExceptionUtil;
 import org.apache.ibatis.session.Configuration;
 
@@ -307,7 +304,6 @@ public class Plugin implements InvocationHandler {
 			String fvs = "";
 			for (int i = 0; i < formMaps.size(); i++) {
 				Object object = formMaps.get(i);
-				@SuppressWarnings("unchecked")
 				Map<String, Object> froMmap = (Map<String, Object>) object;
 				String[] fe = field.split(",");
 				for (String string : fe) {

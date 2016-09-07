@@ -126,7 +126,7 @@ public class BackgroundController extends BaseController {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		UserFormMap userFormMap = (UserFormMap)Common.findUserSession(request);
 		ResFormMap resFormMap = new ResFormMap();
-		resFormMap.put("userId", userFormMap.get("id"));
+		resFormMap.put("userId", userFormMap.get(PARAM_ID));
 		List<ResFormMap> mps = resourcesMapper.findRes(resFormMap);
 		//List<ResFormMap> mps = resourcesMapper.findByWhere(new ResFormMap());
 		List<TreeObject> list = new ArrayList<TreeObject>();

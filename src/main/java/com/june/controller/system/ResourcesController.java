@@ -20,6 +20,7 @@ import com.june.entity.ResUserFormMap;
 import com.june.entity.UserGroupsFormMap;
 import com.june.mapper.ResourcesMapper;
 import com.june.util.Common;
+import com.june.util.MessageUtil;
 import com.june.util.TreeObject;
 import com.june.util.TreeUtil;
 
@@ -44,7 +45,7 @@ public class ResourcesController extends BaseController {
 	@RequestMapping("treelists")
 	public ResFormMap findByPage(Model model) {
 		ResFormMap resFormMap = getFormMap(ResFormMap.class);
-		String order = " order by level asc";
+		String order = MessageUtil.formatMessage(ORDER_BY_ASC, "level");//" order by level asc";
 		resFormMap.put("$orderby", order);
 		List<ResFormMap> mps = resourcesMapper.findByNames(resFormMap);
 		List<TreeObject> list = new ArrayList<TreeObject>();
@@ -97,9 +98,9 @@ public class ResourcesController extends BaseController {
 	 */
 	@RequestMapping("editUI")
 	public String editUI(Model model) {
-		String id = getPara("id");
+		String id = getPara(PARAM_ID);
 		if(Common.isNotEmpty(id)){
-			model.addAttribute("resources", resourcesMapper.findbyFrist("id", id, ResFormMap.class));
+			model.addAttribute("resources", resourcesMapper.findbyFrist(PARAM_ID, id, ResFormMap.class));
 		}
 		return Common.BACKGROUND_PATH + "/system/resources/edit";
 	}
@@ -199,9 +200,9 @@ public class ResourcesController extends BaseController {
 	@RequestMapping("deleteEntity")
 	@SystemLog(module="系统管理",methods="资源管理-删除资源")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String deleteEntity(Model model) throws Exception {
-		String[] ids = getParaValues("ids");
+		String[] ids = getParaValues(PARAM_IDS);
 		for (String id : ids) {
-			resourcesMapper.deleteByAttribute("id", id, ResFormMap.class);
+			resourcesMapper.deleteByAttribute(PARAM_ID, id, ResFormMap.class);
 		};
 		return "success";
 	}
@@ -215,7 +216,7 @@ public class ResourcesController extends BaseController {
 		List<ResFormMap> maps = new ArrayList<ResFormMap>();
 		for (int i = 0; i < ids.size(); i++) {
 			ResFormMap map = new ResFormMap();
-			map.put("id", ids.get(i));
+			map.put(PARAM_ID, ids.get(i));
 			map.put("level", es.get(i));
 			maps.add(map);
 		}

@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.june.annotation.SystemLog;
+import com.june.common.Constants;
 import com.june.controller.index.BaseController;
 import com.june.entity.RoleFormMap;
 import com.june.mapper.RoleMapper;
 import com.june.plugin.PageView;
 import com.june.util.Common;
+import com.june.util.MessageUtil;
 
 /**
  * 
@@ -41,7 +43,7 @@ public class RoleController extends BaseController {
 	public PageView findByPage(String pageNow,
 			String pageSize) throws Exception {
 		RoleFormMap roleFormMap = getFormMap(RoleFormMap.class);
-		roleFormMap=toFormMap(roleFormMap, pageNow, pageSize,roleFormMap.getStr("orderby"));
+		roleFormMap=toFormMap(roleFormMap, pageNow, pageSize,roleFormMap.getStr(PARAM_ORDER_BY));
         pageView.setRecords(roleMapper.findByPage(roleFormMap));
 		return pageView;
 	}
@@ -66,18 +68,18 @@ public class RoleController extends BaseController {
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="组管理-删除组")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String deleteEntity() throws Exception {
-		String[] ids = getParaValues("ids");
+		String[] ids = getParaValues(PARAM_IDS);
 		for (String id : ids) {
-			roleMapper.deleteByAttribute("id", id, RoleFormMap.class);
+			roleMapper.deleteByAttribute(PARAM_ID, id, RoleFormMap.class);
 		}
 		return "success";
 	}
 
 	@RequestMapping("editUI")
 	public String editUI(Model model) throws Exception {
-		String id = getPara("id");
+		String id = getPara(PARAM_ID);
 		if(Common.isNotEmpty(id)){
-			model.addAttribute("role", roleMapper.findbyFrist("id", id, RoleFormMap.class));
+			model.addAttribute("role", roleMapper.findbyFrist(PARAM_ID, id, RoleFormMap.class));
 		}
 		return Common.BACKGROUND_PATH + "/system/role/edit";
 	}
@@ -89,7 +91,7 @@ public class RoleController extends BaseController {
 	public String editEntity() throws Exception {
 		RoleFormMap roleFormMap = getFormMap(RoleFormMap.class);
 		roleMapper.editEntity(roleFormMap);
-		return "success";
+		return SUCCESS;
 	}
 	
 	
@@ -99,15 +101,16 @@ public class RoleController extends BaseController {
 		Object userId = roleFormMap.get("userId");
 		if(null!=userId){
 			List<RoleFormMap> list = roleMapper.seletUserRole(roleFormMap);
-			String ugid = "";
+			String ugid = NULL;
 			for (RoleFormMap ml : list) {
-				ugid += ml.get("id")+",";
+				ugid += ml.get(PARAM_ID)+Constants.FLAG_COMMA;
 			}
 			ugid = Common.trimComma(ugid);
 			model.addAttribute("txtRoleSelect", ugid);
 			model.addAttribute("userRole", list);
 			if(StringUtils.isNotBlank(ugid)){
-				roleFormMap.put("where", " where id not in ("+ugid+")");
+				String where = MessageUtil.formatMessage(WHERE_NOT_IN, PARAM_ID,ugid);
+				roleFormMap.put(PARAM_WHERE, where);
 			}
 		}
 		List<RoleFormMap> roles = roleMapper.findByWhere(roleFormMap);

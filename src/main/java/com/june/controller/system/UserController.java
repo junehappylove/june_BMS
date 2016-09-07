@@ -51,7 +51,7 @@ public class UserController extends BaseController {
 	public PageView findByPage( String pageNow,
 			String pageSize,String column,String sort) throws Exception {
 		UserFormMap userFormMap = getFormMap(UserFormMap.class);
-		userFormMap=toFormMap(userFormMap, pageNow, pageSize,userFormMap.getStr("orderby"));
+		userFormMap=toFormMap(userFormMap, pageNow, pageSize,userFormMap.getStr(PARAM_ORDER_BY));
 		userFormMap.put("column", column);
 		userFormMap.put("sort", sort);
         pageView.setRecords(userMapper.findUserPage(userFormMap));//不调用默认分页,调用自已的mapper中findUserPage
@@ -98,7 +98,7 @@ public class UserController extends BaseController {
 				String[] txt = txtGroupsSelect.split(",");
 				UserGroupsFormMap userGroupsFormMap = new UserGroupsFormMap();
 				for (String roleId : txt) {
-					userGroupsFormMap.put("userId", userFormMap.get("id"));
+					userGroupsFormMap.put("userId", userFormMap.get(PARAM_ID));
 					userGroupsFormMap.put("roleId", roleId);
 					userMapper.addEntity(userGroupsFormMap);
 				}
@@ -114,20 +114,20 @@ public class UserController extends BaseController {
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="用户管理-删除用户")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String deleteEntity() throws Exception {
-		String[] ids = getParaValues("ids");
+		String[] ids = getParaValues(PARAM_IDS);
 		for (String id : ids) {
 			userMapper.deleteByAttribute("userId", id, UserGroupsFormMap.class);
 			userMapper.deleteByAttribute("userId", id, ResUserFormMap.class);
-			userMapper.deleteByAttribute("id", id, UserFormMap.class);
+			userMapper.deleteByAttribute(PARAM_ID, id, UserFormMap.class);
 		}
 		return "success";
 	}
 
 	@RequestMapping("editUI")
 	public String editUI(Model model) throws Exception {
-		String id = getPara("id");
+		String id = getPara(PARAM_ID);
 		if(Common.isNotEmpty(id)){
-			model.addAttribute("user", userMapper.findbyFrist("id", id, UserFormMap.class));
+			model.addAttribute("user", userMapper.findbyFrist(PARAM_ID, id, UserFormMap.class));
 		}
 		return Common.BACKGROUND_PATH + "/system/user/edit";
 	}
@@ -140,12 +140,12 @@ public class UserController extends BaseController {
 		UserFormMap userFormMap = getFormMap(UserFormMap.class);
 		userFormMap.put("txtGroupsSelect", txtGroupsSelect);
 		userMapper.editEntity(userFormMap);
-		userMapper.deleteByAttribute("userId", userFormMap.get("id")+"", UserGroupsFormMap.class);
+		userMapper.deleteByAttribute("userId", userFormMap.get(PARAM_ID)+"", UserGroupsFormMap.class);
 		if(!Common.isEmpty(txtGroupsSelect)){
 			String[] txt = txtGroupsSelect.split(",");
 			for (String roleId : txt) {
 				UserGroupsFormMap userGroupsFormMap = new UserGroupsFormMap();
-				userGroupsFormMap.put("userId", userFormMap.get("id"));
+				userGroupsFormMap.put("userId", userFormMap.get(PARAM_ID));
 				userGroupsFormMap.put("roleId", roleId);
 				userMapper.addEntity(userGroupsFormMap);
 			}

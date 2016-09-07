@@ -12,6 +12,7 @@ import com.june.controller.index.BaseController;
 import com.june.entity.LogFormMap;
 import com.june.plugin.PageView;
 import com.june.util.Common;
+import com.june.util.MessageUtil;
 
 /**
  * 
@@ -37,13 +38,13 @@ public class LogController extends BaseController {
 		LogFormMap logFormMap = getFormMap(LogFormMap.class);
 		String order = "";
 		if(Common.isNotEmpty(column)){
-			order = " order by "+column+" "+sort;
+			order = MessageUtil.formatMessage(ORDER_BY, column, sort);
 		}else{
-			order = " order by id asc";
+			order = ORDER_BY_ID_ASC;
 		}
 		
 		logFormMap.put("$orderby", order);
-		logFormMap=toFormMap(logFormMap, pageNow, pageSize,logFormMap.getStr("orderby"));
+		logFormMap=toFormMap(logFormMap, pageNow, pageSize,logFormMap.getStr(PARAM_ORDER_BY));
         pageView.setRecords(logMapper.findByPage(logFormMap));
 		return pageView;
 	}

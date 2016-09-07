@@ -16,15 +16,7 @@ import com.june.common.MessagePropertyPlaceholderConfiger;
  */
 public class MessageUtil {
 
-	/**
-	 * 根据消息id获取配置文件中的消息内容
-	 * 
-	 * @param msgId
-	 * @param messageParam 消息内容中替换的参数
-	 * @throws Exception
-	 * @return: String
-	 */
-	public static String formatMessage(String msgId, String[] messageParam) {
+	private static String formatMessage_(String msgId, String[] messageParam) {
 		try {
 			String message = getMessage(msgId);
 			message = StringUtils.isNotBlank(message) ? message : msgId;
@@ -36,14 +28,14 @@ public class MessageUtil {
 	}
 	
 	/**
-	 * 处理一个参数的情况
+	 * 根据消息id获取配置文件中的消息内容
 	 * @param msgId
-	 * @param oneParam
+	 * @param params
 	 * @return
 	 */
-	public static String formatMessage(String msgId, String oneParam){
-		if(oneParam!=null){
-			return formatMessage(msgId, new String[]{oneParam});
+	public static String formatMessage(String msgId,String... params){
+		if(params!=null){
+			return formatMessage_(msgId, params);
 		}else{
 			return resourceValue(msgId);
 		}

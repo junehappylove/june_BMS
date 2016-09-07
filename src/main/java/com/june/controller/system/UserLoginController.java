@@ -35,7 +35,7 @@ public class UserLoginController extends BaseController {
 	public PageView findByPage(String pageNow,
 			String pageSize) throws Exception {
 		UserLoginFormMap userLoginFormMap = getFormMap(UserLoginFormMap.class);
-		userLoginFormMap=toFormMap(userLoginFormMap, pageNow, pageSize,userLoginFormMap.getStr("orderby"));
+		userLoginFormMap=toFormMap(userLoginFormMap, pageNow, pageSize,userLoginFormMap.getStr(PARAM_ORDER_BY));
         pageView.setRecords(userLoginMapper.findByPage(userLoginFormMap));
 		return pageView;
 	}

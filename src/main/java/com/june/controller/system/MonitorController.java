@@ -42,7 +42,7 @@ public class MonitorController extends BaseController {
 	public PageView findByPage( String pageNow,
 			String pageSize) throws Exception {
 		ServerInfoFormMap serverInfoFormMap = getFormMap(ServerInfoFormMap.class);
-		serverInfoFormMap=toFormMap(serverInfoFormMap, pageNow, pageSize,serverInfoFormMap.getStr("orderby"));
+		serverInfoFormMap=toFormMap(serverInfoFormMap, pageNow, pageSize,serverInfoFormMap.getStr(PARAM_ORDER_BY));
         pageView.setRecords(serverInfoMapper.findByPage(serverInfoFormMap));
 		return pageView;
 	}
@@ -87,9 +87,9 @@ public class MonitorController extends BaseController {
 		// 从输入流中读取属性列表（键和元素对）
     		PropertiesUtils.modifyProperties(key, value);
 		} catch (Exception e) {
-			dataMap.put("flag", false);
+			dataMap.put(PARAM_FLAG, false);
 		}
-    	dataMap.put("flag", true);
+    	dataMap.put(PARAM_FLAG, true);
 		return dataMap;
     }
 }
