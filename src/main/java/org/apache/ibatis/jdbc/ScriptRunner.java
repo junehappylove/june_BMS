@@ -93,7 +93,6 @@ public class ScriptRunner {
 
   public void runScript(Reader reader) {
     setAutoCommit();
-
     try {
       if (sendFullScript) {
         executeFullScript(reader);

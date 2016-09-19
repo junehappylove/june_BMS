@@ -273,6 +273,7 @@ public class JsonUtils {
 	public static List<Map<String, Object>> parseJSONList(String jsonStr) {
 		JSONArray jsonArr = JSONArray.fromObject(jsonStr);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		@SuppressWarnings("unchecked")
 		Iterator<JSONObject> it = jsonArr.iterator();
 		while (it.hasNext()) {
 			JSONObject JSON = it.next();

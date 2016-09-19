@@ -11,8 +11,6 @@ public class ExcelHeader implements Comparable<ExcelHeader> {
 	private int order; // 标题顺序
 	private int width; // 宽度
 	private String methodName; // 对应方法名称
-
-	
 	
 	public ExcelHeader(String title, int order, int width, String methodName) {
 		super();

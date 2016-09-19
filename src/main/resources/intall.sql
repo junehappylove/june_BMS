@@ -1,4 +1,7 @@
-
+-- ----------------------------
+-- please do not modify this script file . 
+-- 			---- thinks a lot!
+-- ----------------------------
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------

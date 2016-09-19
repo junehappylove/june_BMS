@@ -43,6 +43,7 @@ public class PagePlugin implements Interceptor {
 	private static String dialect = null;// 数据库类型
 	private static String pageSqlId = ""; // mybaits的数据库xml映射文件中需要拦截的ID(正则匹配)
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Object intercept(Invocation ivk) throws Throwable {
 		if (ivk.getTarget() instanceof RoutingStatementHandler) {
@@ -57,8 +58,7 @@ public class PagePlugin implements Interceptor {
 			BoundSql boundSql = delegate.getBoundSql();
 			Object parameterObject = boundSql.getParameterObject();// 分页SQL<select>中parameterType属性对应的实体参数，即Mapper接口中执行分页方法的参数,该参数不得为空
 			if (parameterObject == null) {
-				// throw new NullPointerException("boundSql.getParameterObject()
-				// is null!");
+				// throw new NullPointerException("boundSql.getParameterObject() is null!");
 				return ivk.proceed();
 			} else {
 				if (mappedStatement.getId().indexOf(".BaseMapper.") > -1) {
@@ -71,7 +71,6 @@ public class PagePlugin implements Interceptor {
 					} else if (parameterObject instanceof Map) {
 						Map<?, ?> map = (Map<?, ?>) parameterObject;
 						if (map.containsKey("list")) {
-							@SuppressWarnings("unchecked")
 							List<Object> lists = (List<Object>) (map.get("list"));
 							String sql = Plugin.joinSql(connection, mappedStatement, boundSql, formMap, lists);
 							ReflectHelper.setValueByFieldName(boundSql, "sql", sql);

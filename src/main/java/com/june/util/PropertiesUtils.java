@@ -1,9 +1,6 @@
  package com.june.util;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.Reader;
-import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.apache.ibatis.io.Resources;
@@ -27,7 +24,6 @@ public class PropertiesUtils {
 	 * @return
 	 */
 	public static String findPropertiesKey(String key) {
-		
 		try {
 			Properties prop = getProperties();
 			return prop.getProperty(key);
@@ -35,23 +31,6 @@ public class PropertiesUtils {
 			return "";
 		}
 		
-	}
-
-	public static void main(String[] args) {
-		Properties prop = new Properties();
-		InputStream in = PropertiesUtils.class.getResourceAsStream("/config.properties");
-		try {
-			prop.load(in);
-			Iterator<Entry<Object, Object>> itr = prop.entrySet().iterator();
-			while (itr.hasNext()) {
-				Entry<Object, Object> e = (Entry<Object, Object>) itr.next();
-				System.err.println((e.getKey().toString() + "" + e.getValue()
-						.toString()));
-			}
-			in.close();
-		} catch (Exception e) {
-			
-		}
 	}
 
 	/**
@@ -83,6 +62,7 @@ public class PropertiesUtils {
 		}
 		return prop;
 	}
+	
 	/**
 	 * 写入properties信息
 	 * 
@@ -104,4 +84,21 @@ public class PropertiesUtils {
 		} catch (Exception e) {
 		}
 	}
+
+//	public static void main(String[] args) {
+//		Properties prop = new Properties();
+//		InputStream in = PropertiesUtils.class.getResourceAsStream("/config.properties");
+//		try {
+//			prop.load(in);
+//			Iterator<Entry<Object, Object>> itr = prop.entrySet().iterator();
+//			while (itr.hasNext()) {
+//				Entry<Object, Object> e = (Entry<Object, Object>) itr.next();
+//				System.err.println((e.getKey().toString() + "" + e.getValue()
+//						.toString()));
+//			}
+//			in.close();
+//		} catch (Exception e) {
+//			
+//		}
+//	}
 }

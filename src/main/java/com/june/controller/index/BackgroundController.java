@@ -80,7 +80,7 @@ public class BackgroundController extends BaseController {
 				request.setAttribute("error", Constants.ERROR_NOT_NULL_UP);
 				return "/login";
 			}
-			// 想要得到 SecurityUtils.getSubject()　的对象．．访问地址必须跟ｓｈｉｒｏ的拦截地址内．不然后会报空指针
+			// 想要得到 SecurityUtils.getSubject()　的对象．．访问地址必须跟shiro的拦截地址内．不然后会报空指针
 			Subject user = SecurityUtils.getSubject();
 			// 用户输入的账号和密码,,存到UsernamePasswordToken对象中..然后由shiro内部认证对比,
 			// 认证执行者交由ShiroDbRealm中doGetAuthenticationInfo处理
@@ -158,27 +158,34 @@ public class BackgroundController extends BaseController {
 	@RequestMapping("findAuthority")
 	@ResponseBody
 	public List<String> findAuthority(HttpServletRequest request) {
+		// TODO 
 		return null;
 	}
 
+	/**
+	 * 下载
+	 * @param fileName
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 * @date 2016年9月19日 下午5:06:43
+	 * @writer iscas
+	 */
 	@RequestMapping("download")
 	public void download(String fileName, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-
 		response.setContentType("text/html;charset=utf-8");
 		request.setCharacterEncoding("UTF-8");
 		java.io.BufferedInputStream bis = null;
 		java.io.BufferedOutputStream bos = null;
 
-		String ctxPath = request.getSession().getServletContext().getRealPath("/") + "\\"
-				+ "filezip\\";
+		String ctxPath = request.getSession().getServletContext().getRealPath("/") + "\\" + "filezip\\";
 		String downLoadPath = ctxPath + fileName;
-		System.out.println(downLoadPath);
+		logger.debug("下载路径:"+downLoadPath);
 		try {
 			long fileLength = new File(downLoadPath).length();
 			response.setContentType("application/x-msdownload;");
-			response.setHeader("Content-disposition",
-					"attachment; filename=" + new String(fileName.getBytes("utf-8"), "ISO8859-1"));
+			response.setHeader("Content-disposition", "attachment; filename=" + new String(fileName.getBytes("utf-8"), "ISO8859-1"));
 			response.setHeader("Content-Length", String.valueOf(fileLength));
 			bis = new BufferedInputStream(new FileInputStream(downLoadPath));
 			bos = new BufferedOutputStream(response.getOutputStream());
@@ -196,16 +203,30 @@ public class BackgroundController extends BaseController {
 				bos.close();
 		}
 	}
+	
+	/**
+	 * 退出
+	 * @return
+	 * @date 2016年9月19日 下午5:06:57
+	 * @writer iscas
+	 */
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout() {
 		// 使用权限管理工具进行用户的退出，注销登录
-		SecurityUtils.getSubject().logout(); // session 会销毁，在SessionListener监听session销毁，清理权限缓存
+		// session 会销毁，在SessionListener监听session销毁，清理权限缓存
+		SecurityUtils.getSubject().logout(); 
 		return "redirect:login.shtml";
 	}
 
+	/**
+	 * 一键初始化操作方法
+	 * @return
+	 * @throws Exception
+	 * @date 2016年9月19日 下午4:53:49
+	 * @writer iscas
+	 */
 	@RequestMapping("install")
 	public String install() throws Exception {
-
 		try {
 			Properties props = Resources.getResourceAsProperties("jdbc.properties");
 			String url = props.getProperty("jdbc.url");
@@ -214,6 +235,7 @@ public class BackgroundController extends BaseController {
 			String password = props.getProperty("jdbc.password");
 			Class.forName(driver).newInstance();
 			Connection conn = (Connection) DriverManager.getConnection(url, username, password);
+			// mybatis 自带的脚本运行工具
 			ScriptRunner runner = new ScriptRunner(conn);
 			runner.setErrorLogWriter(null);
 			runner.setLogWriter(null);

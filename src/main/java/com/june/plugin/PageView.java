@@ -3,9 +3,11 @@ package com.june.plugin;
 import java.util.List;
 
 /**
- * //分页封装函数
  * 
- * @param <T>
+ * 分页封装函数 <br>
+ * 
+ * @author 王俊伟 wjw.happy.love@163.com
+ * @date 2016年9月19日 下午4:47:43
  */
 public class PageView {
 	/**
