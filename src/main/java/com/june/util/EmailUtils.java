@@ -20,13 +20,16 @@ import javax.mail.internet.MimeMessage;
  */
 public class EmailUtils {
 
-	public static void main(String[] args) throws Exception {
+//	public static void main(String[] args) throws Exception {
 //		Properties prop = new Properties();
 //		InputStream in = SpringTaskController.class.getResourceAsStream("/config.properties");
 //		prop.load(in);
 //		EmailUtils.sendMail(prop.getProperty("fromEmail"), prop.getProperty("toEmail"), prop.getProperty("emailName"),prop.getProperty("emailPassword"), "猪蹄", "内容");
-	}
+//	}
 
+	private static final String PROTOCOL = "smtp";
+	private static final String PROTOCOL_URL = "smtp.163.com";
+	
 	/**
 	 * 发送邮件 (暂时只支持163邮箱发送)
 	 * 
@@ -48,8 +51,8 @@ public class EmailUtils {
 			String centent) throws Exception {
 
 		Properties properties = new Properties();// 创建Properties对象
-		properties.setProperty("mail.transport.protocol", "smtp");// 设置传输协议
-		properties.put("mail.smtp.host", "smtp.163.com");// 设置发信邮箱的smtp地址
+		properties.setProperty("mail.transport.protocol", PROTOCOL);// 设置传输协议
+		properties.put("mail.smtp.host", PROTOCOL_URL);// 设置发信邮箱的smtp地址
 		properties.setProperty("mail.smtp.auth", "true"); // 验证
 		Authenticator auth = new AjavaAuthenticator(emailName, emailPassword); // 使用验证，创建一个Authenticator
 		Session session = Session.getDefaultInstance(properties, auth);// 根据Properties，Authenticator创建Session

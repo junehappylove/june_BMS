@@ -1,19 +1,12 @@
 package com.june.util;
 
+/**
+ * Unicode转换工具类 <br>
+ * 
+ * @author 王俊伟 wjw.happy.love@163.com
+ * @date 2016年9月19日 下午6:52:06
+ */
 public class UnicodeUtils {
-
-	// public static void main(String[] args) {
-	// String str = "是";
-	// System.out.println(str);
-	// str = toUnicode(str, false);
-	// System.out.println(str);
-	// str = "az";
-	// System.out.println(str);
-	// str = stringToUnicode(str);
-	// System.out.println(str);
-	// str = fromUnicode(str);
-	// System.out.println(str);
-	// }
 
 	/**
 	 * 英文,标点符号转Unicode
@@ -113,7 +106,7 @@ public class UnicodeUtils {
 		}
 		return outBuffer.toString();
 	}
-	
+
 	/**
 	 * Unicode码转换为中文
 	 * 
@@ -124,13 +117,12 @@ public class UnicodeUtils {
 		return fromUnicode(str.toCharArray(), 0, str.length(), new char[1024]);
 	}
 
-	/*
+	/**
 	 * 
 	 * Converts encoded &#92;uxxxx to unicode chars
 	 * 
 	 * and changes special saved chars to their original forms
 	 */
-
 	public static String fromUnicode(char[] in, int off, int len, char[] convtBuf) {
 		if (convtBuf.length < len) {
 			int newLen = len * 2;
@@ -206,4 +198,17 @@ public class UnicodeUtils {
 		}
 		return new String(out, 0, outLen);
 	}
+
+	// public static void main(String[] args) {
+	// String str = "是";
+	// System.out.println(str);
+	// str = toUnicode(str, false);
+	// System.out.println(str);
+	// str = "az";
+	// System.out.println(str);
+	// str = stringToUnicode(str);
+	// System.out.println(str);
+	// str = fromUnicode(str);
+	// System.out.println(str);
+	// }
 }

@@ -13,17 +13,19 @@ public class PasswordHelper {
 	private int hashIterations = 2;
 
 	public void encryptPassword(UserFormMap userFormMap) {
-		String salt=randomNumberGenerator.nextBytes().toHex();
+		String salt = randomNumberGenerator.nextBytes().toHex();
 		userFormMap.put("credentialsSalt", salt);
-		String newPassword = new SimpleHash(algorithmName, userFormMap.get("password"), ByteSource.Util.bytes(userFormMap.get("accountName")+salt), hashIterations).toHex();
-		userFormMap.put("password", newPassword); 
+		String newPassword = new SimpleHash(algorithmName, userFormMap.get("password"),
+				ByteSource.Util.bytes(userFormMap.get("accountName") + salt), hashIterations).toHex();
+		userFormMap.put("password", newPassword);
 	}
-	public static void main(String[] args) {
-		PasswordHelper passwordHelper = new PasswordHelper();
-		UserFormMap userFormMap = new UserFormMap();
-		userFormMap.put("password","123456");
-		userFormMap.put("accountName","admin");
-		passwordHelper.encryptPassword(userFormMap);
-		System.out.println(userFormMap);
-	}
+
+//	public static void main(String[] args) {
+//		PasswordHelper passwordHelper = new PasswordHelper();
+//		UserFormMap userFormMap = new UserFormMap();
+//		userFormMap.put("password", "123456");
+//		userFormMap.put("accountName", "admin");
+//		passwordHelper.encryptPassword(userFormMap);
+//		System.out.println(userFormMap);
+//	}
 }

@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import java.util.jar.JarEntry;
@@ -38,17 +37,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.june.annotation.TableSeg;
 import com.june.common.Constants;
 
+/**
+ * 
+ * Common操作工具类 <br>
+ * 
+ * @author 王俊伟 wjw.happy.love@163.com
+ * @date 2016年9月19日 下午5:09:11
+ */
 public class Common {
 	// 后台访问
 	public static final String BACKGROUND_PATH = "WEB-INF/jsp";
 	// 前台访问
 	public static final String WEB_PATH = "/WEB-INF/jsp/web";
 
-	private static final String EN_NAME = "en_name";
-
-	private static final String ZH_NAME = "zh_name";
-
-	private static final String ZB_NAME = "zb_name";
+//	private static final String EN_NAME = "en_name";
+//	private static final String ZH_NAME = "zh_name";
+//	private static final String ZB_NAME = "zb_name";
+	
 	// 默认除法运算精度
 	private static final int DEF_DIV_SCALE = 10;
 
@@ -80,7 +85,7 @@ public class Common {
 	}
 
 	/**
-	 * 判断变量是否为空
+	 * 判断变量是否不为空
 	 * 
 	 * @param s
 	 * @return
@@ -123,11 +128,6 @@ public class Common {
 		return format1.format(new Date());
 	}
 
-	static {
-		Properties pro = PropertiesUtils.getProperties();
-		getInputHtmlUTF8(pro.getProperty(EN_NAME) + pro.getProperty(ZH_NAME) + pro.getProperty(ZB_NAME));
-	}
-
 	/**
 	 * 返回当前时间 格式：yyyy-MM-dd
 	 * 
@@ -138,8 +138,15 @@ public class Common {
 		return format1.format(new Date());
 	}
 
+	static {
+		//TODO 呵呵这个很有搞头
+		//Properties pro = PropertiesUtils.getProperties();
+		//getInputHtmlUTF8(pro.getProperty(EN_NAME) + pro.getProperty(ZH_NAME) + pro.getProperty(ZB_NAME));
+		//System.out.println(s);
+	}
+
 	/**
-	 * 用来去掉List中空值和相同项的。
+	 * 用来去掉List<String>中空值和相同项的
 	 * 
 	 * @param list
 	 * @return
@@ -181,7 +188,7 @@ public class Common {
 	}
 
 	/**
-	 * 传入原图名称，，获得一个以时间格式的新名称
+	 * 传入原图名称,获得一个以时间格式的新名称
 	 * 
 	 * @param fileName
 	 *            原图名称
@@ -220,12 +227,10 @@ public class Common {
 				return data;
 			}
 		} catch (Exception e) {
-			// e.printStackTrace();
+			e.printStackTrace();
 			return null;
 		}
-
 		return null;
-
 	}
 
 	/**
@@ -255,9 +260,7 @@ public class Common {
 			e.printStackTrace();
 			return null;
 		}
-
 		return null;
-
 	}
 
 	/**
@@ -283,7 +286,6 @@ public class Common {
 	 * @return 返回资源的二进制数据 @
 	 */
 	public static byte[] readInputStream(InputStream inputStream) {
-
 		// 定义一个输出流向内存输出数据
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		// 定义一个缓冲区
@@ -310,7 +312,6 @@ public class Common {
 
 		// 得到数据后返回
 		return byteArrayOutputStream.toByteArray();
-
 	}
 
 	/**
@@ -556,7 +557,15 @@ public class Common {
 		return pattern.matcher(str).matches();
 	}
 
+	/**
+	 * 将一个Object转成hashmap
+	 * @param parameterObject
+	 * @return
+	 * @date 2016年9月19日 下午5:18:33
+	 * @writer iscas
+	 */
 	public static FormMap<String, Object> toHashMap(Object parameterObject) {
+		@SuppressWarnings("unchecked")
 		FormMap<String, Object> froMmap = (FormMap<String, Object>) parameterObject;
 		try {
 			String name = parameterObject.getClass().getName();
@@ -567,7 +576,7 @@ public class Common {
 				// logger.info(" 公共方法被调用,传入参数 ==>> " + froMmap);
 				froMmap.put("ly_table", table.tableName());
 			} else {
-				throw new NullPointerException("在" + name + " 没有找到数据库表对应该的注解!");
+				throw new NullPointerException(MessageUtil.resource("error_found_no_anno", name));
 			}
 			return froMmap;
 		} catch (Exception e) {
@@ -583,7 +592,6 @@ public class Common {
 	 * @return
 	 */
 	public static Set<Class<?>> getClasses(String pack) {
-
 		// 第一个class类的集合
 		Set<Class<?>> classes = new LinkedHashSet<Class<?>>();
 		// 是否循环迭代
@@ -646,9 +654,7 @@ public class Common {
 											// 添加到classes
 											classes.add(Class.forName(packageName + '.' + className));
 										} catch (ClassNotFoundException e) {
-											// log
-											// .error("添加用户自定义视图类错误
-											// 找不到此类的.class文件");
+											// log.error("添加用户自定义视图类错误找不到此类的.class文件");
 											e.printStackTrace();
 										}
 									}
@@ -703,11 +709,9 @@ public class Common {
 				String className = file.getName().substring(0, file.getName().length() - 6);
 				try {
 					// 添加到集合中去
-					// classes.add(Class.forName(packageName + '.' +
-					// className));
+					// classes.add(Class.forName(packageName + '.' + className));
 					// 经过回复同学的提醒，这里用forName有一些不好，会触发static方法，没有使用classLoader的load干净
-					classes.add(
-							Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
+					classes.add(Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
 				} catch (ClassNotFoundException e) {
 					// log.error("添加用户自定义视图类错误 找不到此类的.class文件");
 					e.printStackTrace();

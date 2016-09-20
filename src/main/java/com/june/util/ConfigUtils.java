@@ -12,6 +12,8 @@ import com.june.mapper.base.BaseMapper;
 
 public class ConfigUtils {
 	private final Logger logger = Logger.getLogger(ConfigUtils.class);
+	private final static String PACKAGE_NAME = "com.june.entity";
+
 	/**
 	 * 初始化数据库表字段到缓存
 	 */
@@ -22,13 +24,13 @@ public class ConfigUtils {
 			Properties pro = PropertiesUtils.getjdbcProperties();
 			Class.forName(pro.getProperty("jdbc.driverClass")); // 1、使用CLASS
 			String url = pro.getProperty("jdbc.url");
-			String db = url.substring(url.lastIndexOf("/")+1);
-			if(db.indexOf("?")>-1){
-				db=db.substring(0, db.indexOf("?"));
+			String db = url.substring(url.lastIndexOf("/") + 1);
+			if (db.indexOf("?") > -1) {
+				db = db.substring(0, db.indexOf("?"));
 			}
-			String packageName = "com.june.entity";
+			String packageName = PACKAGE_NAME;
 			// List<String> classNames = getClassName(packageName);
-			List<String> classNames = ClassUtil.getClassName(packageName, true);//true包含子目录
+			List<String> classNames = ClassUtil.getClassName(packageName, true);// true包含子目录
 			String tabs = "";
 			if (classNames != null) {
 				for (String className : classNames) {
@@ -36,27 +38,27 @@ public class ConfigUtils {
 					boolean flag = clazz.isAnnotationPresent(TableSeg.class); // 某个类是不是存在TableSeg注解
 					if (flag) {
 						TableSeg table = (TableSeg) clazz.getAnnotation(TableSeg.class);
-						tabs+="'"+table.tableName()+"',";
+						tabs += "'" + table.tableName() + "',";
 						map.put(table.tableName(), table.id());
-					} 
+					}
 				}
 			}
-			tabs=Common.trimComma(tabs);
-			//尽量减少对数据库/IO流操作,一次查询所有表的的字段
+			tabs = Common.trimComma(tabs);
+			// 尽量减少对数据库/IO流操作,一次查询所有表的的字段
 			HashMap<String, Object> tm = new HashMap<String, Object>();
 			tm.put("table_name", tabs);
-			tm.put("database_name","'"+db+"'");
-			 List<HashMap<String, Object>> lh = baseMapper.initTableField(tm);
-			 for (HashMap<String, Object> hashMap : lh) {
-				 Map<String, Object> m = new HashMap<String, Object>();
-					m.put("field", hashMap.get("COLUMN_NAME"));
-					String ble =hashMap.get("TABLE_NAME").toString();//表名
-					m.put("column_key", map.get(ble));//获取表的主键
-					EhcacheUtils.put(ble, m);//某表对应的主键和字段放到缓存
+			tm.put("database_name", "'" + db + "'");
+			List<HashMap<String, Object>> lh = baseMapper.initTableField(tm);
+			for (HashMap<String, Object> hashMap : lh) {
+				Map<String, Object> m = new HashMap<String, Object>();
+				m.put("field", hashMap.get("COLUMN_NAME"));
+				String ble = hashMap.get("TABLE_NAME").toString();// 表名
+				m.put("column_key", map.get(ble));// 获取表的主键
+				EhcacheUtils.put(ble, m);// 某表对应的主键和字段放到缓存
 			}
 		} catch (Exception e) {
-			logger.error(MessageUtil.resource("error_loading_wrong",e.getMessage()));
+			logger.error(MessageUtil.resource("error_loading_wrong", e.getMessage()));
 			e.printStackTrace();
-		} 
+		}
 	}
 }
